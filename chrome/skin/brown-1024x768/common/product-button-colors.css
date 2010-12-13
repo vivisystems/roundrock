@@ -6,9 +6,14 @@
  */
 
 .product-button-color-default {
-    color: #000;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn1.png) center center repeat-x !important;
+    border: 1px solid;
+    color: #3b556c !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-default:not([disabled=true]):active,
@@ -21,9 +26,14 @@
 }
 
 .product-button-color-1 {
-    color: #000D93;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn2.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #fff !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-1:not([disabled=true]):active,
@@ -36,9 +46,14 @@
 }
 
 .product-button-color-2 {
-    color: #00330F;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn3.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #534741 !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-2:not([disabled=true]):active,
@@ -51,9 +66,14 @@
 }
 
 .product-button-color-3 {
-    color: #1C5119;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn4.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #fff !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-3:not([disabled=true]):active,
@@ -66,9 +86,14 @@
 }
 
 .product-button-color-4 {
-    color: #213088;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn5.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #004a80 !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-4:not([disabled=true]):active,
@@ -81,9 +106,14 @@
 }
 
 .product-button-color-5 {
-    color: #9D0861;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn6.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #534741 !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-5:not([disabled=true]):active,
@@ -96,9 +126,14 @@
 }
 
 .product-button-color-6 {
-    color: #312861;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn7.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #fff !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-6:not([disabled=true]):active,
@@ -111,9 +146,14 @@
 }
 
 .product-button-color-7 {
-    color: #582891;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn8.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #fff !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-7:not([disabled=true]):active,
@@ -126,9 +166,14 @@
 }
 
 .product-button-color-8 {
-    color: #285161;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn9.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #440e62 !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
  }
 
 .product-button-color-8:not([disabled=true]):active,
@@ -141,9 +186,14 @@
 }
 
 .product-button-color-9 {
-    color: #5F1E56;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn10.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #fff !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-9:not([disabled=true]):active,
@@ -157,9 +207,14 @@
 
 
 .product-button-color-10 {
-    color: #4E4E4E;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn11.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #fff !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-10:not([disabled=true]):active,
@@ -173,9 +228,14 @@
 
 
 .product-button-color-11 {
-    color: #301F3E;
-    background: url(../images/btn_background_01.png) center top repeat-y;
+    background: transparent url(../images/pluBtn12.png) center center repeat-x !important;
+    border: 1px solid black;
+    color: #252525 !important;
     -moz-appearance: none;
+    -moz-border-top-colors: black;
+    -moz-border-right-colors: black;
+    -moz-border-bottom-colors: black;
+    -moz-border-left-colors: black;
 }
 
 .product-button-color-11:not([disabled=true]):active,
@@ -195,6 +255,6 @@
 .product-button-color-8[selected]:not([disabled=true]), .product-button-color-9[selected]:not([disabled=true]),
 .product-button-color-10[selected]:not([disabled=true]), .product-button-color-11[selected]:not([disabled=true]) {
     /*list-style-image: url(chrome://viviecr/skin/images/con_sel.png);*/
-    /*background-position: 0 -100px !important;*/
+    background-position: 0 -100px !important;
     font-size: italic;
 }

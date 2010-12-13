@@ -86,8 +86,8 @@
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
             if (fnCols == null) fnCols = 4;
 
-            var fixedFnRows = fnRows;
-            var fixedFnCols = 1;
+            var fixedFnRows = GeckoJS.Configure.read('vivipos.fec.settings.fixedfunctionpanel.rows');
+            var fixedFnCols = GeckoJS.Configure.read('vivipos.fec.settings.fixedfunctionpanel.columns');
             
             var hideDeptScrollbar = true;
             var hidePLUScrollbar = true;

@@ -437,12 +437,15 @@ button_colorpicker {
 
 button_colorpicker button hbox {
     -moz-box-orient: vertical;
+    border-bottom: 2px solid #FF0000 !important;
+    border-right: 2px solid #FF0000 !important;
 }
 
 button_colorpicker button {
     margin: 4px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
+    border: none;
 }
 
 button_colorpicker:not([disabled=true]) button[selected] {

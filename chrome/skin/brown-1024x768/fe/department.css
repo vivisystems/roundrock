@@ -10,28 +10,18 @@
     margin: 0px;
 }
 
-.main-overlay .button-department {
-    background: #848388 url(../images/departBtn1.png) top left repeat-x;
-    border: 2px solid;
-    margin: 2px 2px 2px 2px;
-    min-height:50px;
-    min-width: 50px;
-    padding: 0px;
+.main-overlay .catescrollablepanel .button-department {
+    background: transparent none !important;
+    border-width: 0px !important;
+    color: #FED !important;
+    padding: 10px 0px 5px 0px;
+    margin: 0px 2px;
+    height: 61px;
+    max-height: 61px;
+    min-height: 61px;
     -moz-appearance: none;
-    -moz-border-top-colors: #848388 #bebebe;
-    -moz-border-right-colors: #848388 #bebebe;
-    -moz-border-bottom-colors: #848388 #bebebe;
-    -moz-border-left-colors: #848388 #bebebe;
     -moz-background-clip: border;
     -moz-user-focus: ignore;
-    -moz-border-radius: 10px;
-}
-
-.main-overlay .button-department[disabled=true] {
-    -moz-border-top-colors: #848388 #bebebe !important;
-    -moz-border-right-colors: #848388 #bebebe !important;
-    -moz-border-bottom-colors: #848388 #bebebe !important;
-    -moz-border-left-colors: #848388 #bebebe !important;
 }
 
 .main-overlay .button-department hbox {
@@ -110,4 +100,67 @@
 
 .main-overlay .dept-scroll-down-button description {
     display: none;
+}
+
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.main-overlay .catescrollablepanel .department-button-color-default[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-1[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-2[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-3[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-4[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-5[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-6[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-7[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-8[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-9[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-10[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-11[disabled=false]:active,
+.main-overlay .catescrollablepanel .department-button-color-default[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-1[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-2[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-3[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-4[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-5[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-6[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-7[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-8[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-9[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-10[disabled=false][selected],
+.main-overlay .catescrollablepanel .department-button-color-11[disabled=false][selected] {
+    border-width: 0px !important;
+    font-style: normal !important;
+}
+
+.main-overlay .catescrollablepanel .plugroup-button-color-default[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-1[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-2[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-3[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-4[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-5[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-6[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-7[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-8[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-9[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-10[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-11[disabled=false]:active,
+.main-overlay .catescrollablepanel .plugroup-button-color-default[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-1[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-2[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-3[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-4[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-5[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-6[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-7[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-8[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-9[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-10[disabled=false][selected],
+.main-overlay .catescrollablepanel .plugroup-button-color-11[disabled=false][selected] {
+    border-width: 0px !important;
+    font-style: normal !important;
 }

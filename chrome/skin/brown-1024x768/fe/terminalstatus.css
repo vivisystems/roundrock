@@ -7,45 +7,40 @@
 #status-bar {
     margin: 0px;
     padding: 0px;
+    background-color: #93806F;
+    -moz-appearance: none;
 }
 
-#status-bar .console-terminal-no {
+#status-bar vivisessionstatus {
     background-color: transparent;
-    border-color: black;
-    border-width: 1px;
     color: black;
     font-size: x-small;
     text-align: center;
+    -moz-appearance: none;
 }
 
 #status-bar .console-current-user {
     background-color: transparent;
-    border-width: 1px;
+    border-width: 2px;
     color: black;
     font-size: x-small;
     text-align: center;
-}
-
-#status-bar .console-sale-period {
-    background-color: transparent;
-    border-color: blue;
-    border-style: solid;
-    border-width: 0px;
-    color: black;
-    text-align: center;
+    -moz-appearance: none;
 }
 
 #status-bar .console-message-value {
     background-color: transparent;
-    border-width: 1px;
+    border-width: 2px;
     color: black;
     font-size: x-small;
     min-width: 80px;
+    -moz-appearance: none;
 }
 
-#status-bar .console-clock {
+#status-bar viviclock {
     background-color: transparent;
     font-size: small;
+    -moz-appearance: none;
 }
 
 #status-bar .receiptStatus[status=on] {
@@ -53,6 +48,7 @@
     margin: 0 10px 0 10px;
     max-width: 18px;
     max-height: 18px;
+    -moz-appearance: none;
 }
 
 #status-bar .receiptStatus[status=off] {
@@ -60,6 +56,7 @@
     margin: 0 10px 0 10px;
     max-width: 18px;
     max-height: 18px;
+    -moz-appearance: none;
 }
 
 .statusbarpanel-text {

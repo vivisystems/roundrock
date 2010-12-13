@@ -6,9 +6,13 @@
  */
 
 .main-overlay .main-input-line {
+    background-color: #93806F;
+    color: #FFFD75;
     font-family: monospace;
     font-size: 20px !important;
     font-weight: bold !important;
-    padding: 3px 10px;
+    padding: 2px 10px;
+    margin-bottom: 10px;
     -moz-appearance: none;
+    -moz-border-radius: 6px;
 }

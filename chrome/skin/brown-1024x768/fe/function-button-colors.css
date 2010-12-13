@@ -1,0 +1,12 @@
+/*--------------------------------------------------------------------------
+ *
+ * FRONT-END FUNCTION BUTTON COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.main-overlay vivifuncpanelecr vivibutton {
+    background: transparent none;
+    padding: 12px 0px 4px 0px;
+    -moz-appearance: none;
+}

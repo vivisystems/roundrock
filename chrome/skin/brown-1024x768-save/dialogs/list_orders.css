@@ -1,0 +1,35 @@
+/*-----------------------------------------------------------------------------
+ *
+ * List Orders Dialog
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+#orderscrollablepanel #branch {
+    text-align: center;
+}
+
+#orderscrollablepanel #transaction_submitted {
+    text-align: center;
+}
+
+#orderscrollablepanel #terminal_no {
+    text-align: center;
+}
+
+#orderscrollablepanel #sequence {
+    text-align: center;
+}
+
+#orderscrollablepanel #status_str {
+    text-align: center;
+}
+
+#orderscrollablepanel #total,
+#orderscrollablepanel #balance {
+    text-align: right;
+}
+
+#orderscrollablepanel #qty_subtotal {
+    text-align: center;
+}

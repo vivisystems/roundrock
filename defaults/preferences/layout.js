@@ -43,6 +43,6 @@ pref("vivipos.fec.registry.layouts.roundrock_brown_1024x768.overlay_uri", "chrom
 pref("vivipos.fec.registry.layouts.roundrock_brown_1024x768.prefs_overlay_uri", "chrome://roundrock/content/layouts/brown/brown_prefs.xul");
 pref("vivipos.fec.registry.layouts.roundrock_brown_1024x768.icon", "chrome://roundrock/content/layouts/brown/brown.png");
 pref("vivipos.fec.registry.layouts.roundrock_brown_1024x768.resolutions", "1024x768");
-pref("vivipos.fec.registry.layouts.roundrock_brown_1024x768.disabled_features", "pluheightFeature,fnheightFeature,cartStatusPositionFeature");
+pref("vivipos.fec.registry.layouts.roundrock_brown_1024x768.disabled_features", "pluPanelFeature,functionPanelFeature,deptheightFeature,cartStatusPositionFeature");
 pref("vivipos.fec.registry.layouts.roundrock_brown_1024x768.skin", "brown-${width}x${height}/1.0");
 

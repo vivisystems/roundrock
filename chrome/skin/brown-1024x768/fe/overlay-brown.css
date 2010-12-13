@@ -6,34 +6,54 @@
  */
 
 .main-overlay .main-panel  {
-    background: url(../images/frame_bg.png) no-repeat;
-    border: none;
+    background: #f1faff url(../images/frame_bg.png) 0 -5px repeat-x;
+    border: 0px solid;
     height: 768px;
     width: 1024px;
-    padding: 0 5px 10px 10px;
+    padding: 0px 10px;
 }
 
 .main-overlay .left-panel {
     max-width: 444px;
     min-width: 444px;
     width: 444px;
-    margin-right: 10px;
-}
+ }
 
 .main-overlay .right-panel {
+    margin-left: 10px;
     max-width: 555px;
     min-width: 555px;
     width: 555px;
 }
 
-.main-overlay .bottom-panel {
-    margin-top: 10px;
+.main-overlay .left-panel .items-panel {
+    height: 305px;
+    max-height: 305px;
+    min-height: 305px;
+    margin-bottom: 3px;
 }
 
-.main-overlay .function-toolbar {
-    min-width: 44px;
-    max-width: 44px;
-    width: 44px;
+.main-overlay .right-panel #functionpanel {
+    height: 186px;
+    min-height: 186px;
+    max-height: 186px;
+}
+
+.main-overlay .right-panel .cmd-panel {
+    height: 242px;
+    min-height: 242px;
+    max-height: 242px;
+}
+
+.main-overlay .left-panel .items-panel .prodscrollablepanel,
+.main-overlay .left-panel .items-panel .catescrollablepanel {
+    max-width: 444px;
+    min-width: 444px;
+    width: 444px;
+}
+
+.main-overlay .left-panel #inputLinePanelContainer {
+    margin: 2px 6px 0px 6px;
 }
 
 .main-overlay .main-wait-panel {
@@ -55,67 +75,14 @@
     display: none;
 }
 
-#customerPanelContainer {
-    border: 2px ridge;
-}
-
-.vfd-panel {
-    font-size: 16px;
-    font-weight: bold;
-    height: 50px;
-    min-height: 50px;
-}
-
-.text-total {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 5px 50px 10px 0;
-}
-
-.button_delete {
-    background: url(../images/btn_delete.gif) repeat-x;
-    border: none;
-    height: 40px;
-    min-height: 40px;
-    max-height: 40px;
-    color: #FFF;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0 10px 0 10px;
-    -moz-appearance: none;
-    -moz-border-radius: 10px;
-}
-
-.info-panel {
-    font-size: 16px;
-    font-weight: bold;
-    height: 40px;
-    min-height: 40px;
-    max-height: 40px;
-}
-
-.text-title {
-    color: #FFFD75;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.text-value {
-    text-align: right;
-    font-size: 40px;
-    font-weight: bold;
-    margin: 150px 15px 0 0;
-}
-.scrollablepanel-scrollbar {
-    display: none;
-}
-.page-panel {
+.main-overlay .page-panel {
     width: 44px;
     min-width: 44px;
     max-width: 44px;
-    margin: 50px 5px 0 0;
+    margin: 50px 5px 0 5px;
 }
-.btn-up {
+
+.main-overlay .page-panel .btn-up {
     background: url(../images/btn_up.png) no-repeat;
     width: 44px;
     min-width: 44px;
@@ -126,24 +93,63 @@
     -moz-appearance: none;
     -moz-border-radius: 10px;
 }
-.btn-down {
+
+.main-overlay .page-panel .btn-down {
     background: url(../images/btn_down.png) no-repeat;
     width: 44px;
     min-width: 44px;
     max-width: 44px;
     height: 127px;
     border: none;
-    margin-top: 5px;
+    margin-top: 10px;
     -moz-appearance: none;
     -moz-border-radius: 10px;
 }
-.cash-panel vbox {
-    width: 180px;
-    margin: 20px 5px 0 0;
+
+.main-overlay .right-panel .info-panel {
+    background: transparent;
+    padding: 2px 5px;
 }
-.input {
+
+.main-overlay .right-panel .clock-panel {
+    background: transparent;
+    border: 0px;
+    color: black;
+    font-size: 16px;
+}
+
+.main-overlay .right-panel .info-panel .return-mode-panel {
+    background: transparent;
+    border: 2px solid;
+    color: #333334;
+    font-size: 16pt;
     height: 30px;
-    margin: 0 10px 0 10px;
-    padding: 8px 0 0 10px;
-    font-weight: bold;
+    max-height: 30px;
+    max-width: 150px;
+    min-height: 30px;
+    min-width: 150px;
+    width: 150px;
+    -moz-border-top-colors: #424851 #fff;
+    -moz-border-right-colors: #424851 #fff;
+    -moz-border-bottom-colors: #424851 #fff;
+    -moz-border-left-colors: #424851 #fff;
+    -moz-border-radius: 4px;
+}
+
+.main-overlay .right-panel .info-panel .cartstatus-panel {
+    background: transparent;
+    border: 2px solid;
+    color: #333334;
+    height: 30px;
+    margin-left: 8px;
+    max-height: 30px;
+    max-width: 150px;
+    min-height: 30px;
+    min-width: 150px;
+    width: 150px;
+    -moz-border-top-colors: #424851 #fff;
+    -moz-border-right-colors: #424851 #fff;
+    -moz-border-bottom-colors: #424851 #fff;
+    -moz-border-left-colors: #424851 #fff;
+    -moz-border-radius: 4px;
 }

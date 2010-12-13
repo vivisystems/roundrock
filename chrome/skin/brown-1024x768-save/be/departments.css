@@ -1,0 +1,27 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Departments
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-menupopup {
+    width: 200px;
+}
+
+.custom-container-button-color-fontsize-picker {
+    margin: 4px 6px 4px 4px;
+    background: #f1ede5;
+}
+
+.custom-container-button-color-fontsize-picker vbox {
+    margin: 5px;
+    padding: 5px;
+}
+
+.custom-content-color-picker button {
+    max-width: 80px;
+    max-height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+}

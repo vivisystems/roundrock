@@ -6,9 +6,10 @@
  */
 
 .vivifuncpanelecr_function_panel {
-    background: none;
+    background: transparent;
     border-width: 1px;
-    margin-top: 3px;
+    padding: 0px 0px 0px 0px;
+    
 }
 
 .vivifuncpanelecr_spacer {
@@ -26,6 +27,7 @@
     border: none;
     margin: 0px 0px 0px 0px;
     padding: 0px;
+    background: transparent;
 }
 
 /*-----------------------------------------------------------------------------
@@ -34,9 +36,8 @@
  */
 
 .vivifuncpanelecr_matrix_button_mapped {
-    background: #300;
+    background: transparent;
     border: none;
-    color: #000;
     list-style-type: none;
     margin: 0px;
     overflow: hidden;
@@ -44,7 +45,7 @@
     text-align: center;
     -moz-appearance: none;
     -moz-background-clip: border;
-    -moz-border-radius: 10px;
+    /*-moz-border-radius: 10px;*/
     -moz-user-focus: ignore;
 }
 
@@ -92,7 +93,6 @@
     -moz-background-clip: border;
     -moz-border-radius: 0px;
     -moz-user-focus: ignore;
-    background: url(../images/btn_background_01.png) center top repeat-y !important;
 }
 
 .vivifuncpanelecr_matrix_button_configure[checked=true] {

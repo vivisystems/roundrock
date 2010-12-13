@@ -9,6 +9,10 @@
     background-color: #1e1b14;
 }
 
+.promotions-vbox row {
+    -moz-box-align: center;
+}
+
 .promotions-vbox textbox {
     -moz-user-focus: ignore;
     -moz-user-select: none;
@@ -20,9 +24,9 @@
     border-width: 0px;
     color: #f49b1d;
     font-family: monospace;
-    font-size: 15pt;
+    font-size: 12pt;
     font-weight: bold !important;
-    width: 250px;
+    width: 200px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
@@ -34,7 +38,7 @@
     border-width: 0px;
     color: red;
     font-family: monospace;
-    font-size: 15pt;
+    font-size: 14pt;
     font-weight: bold !important;
     text-align: right;
     -moz-appearance: none;
@@ -48,10 +52,10 @@
     border-width: 0px;
     color: #f49b1d;
     font-family: monospace;
-    font-size: 15pt;
+    font-size: 12pt;
     font-weight: bold !important;
     text-align: right;
-    width: 80px;
+    width: 50px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
