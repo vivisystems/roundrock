@@ -51,8 +51,8 @@
                     }catch(e) {
                         this.log('ERROR', 'Error restarting after registration', e);
                     }
-                        }
-                    }
+                }
+            }
         },
 
         isAlphaNumeric: function(str) {
