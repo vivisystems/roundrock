@@ -193,7 +193,7 @@ get_serial_number() {
 
     while [ $SUCCESS -ne 0 ]; do
 
-        { $SERIAL_NUMBER_READER > /tmp/sn.$$ ; } 2>&1 \
+        { $SERIAL_NUMBER_READER | grep license_stub | awk -F"=" '{print $2}' > /tmp/sn.$$ ; } 2>&1 \
 	| $DIALOG $DIALOG_OPTS --progressbox "Retrieving system serial number..." 8 $MAX_WIDTH
 
 	SERIAL_NUMBER=`cat /tmp/sn.$$`

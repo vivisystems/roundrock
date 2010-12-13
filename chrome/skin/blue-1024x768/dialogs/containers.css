@@ -69,25 +69,28 @@
 
 .container-dialog .container-wait-panel .container-main,
 .container-dialog .container-interruptible-wait-panel .container-main {
-    background: #EEEEFF;
-    border: 2px solid #3180FF;
+    background: transparent url(chrome://viviecr/skin/images/w_bg.gif) 0% 0% repeat-x;
+    border-width: 0px;
     margin: 0px;
     padding: 30px 40px 20px 40px;
     -moz-border-radius: 10px;
 }
 
 .container-dialog .container-wait-panel progressmeter {
+    background: transparent url(chrome://viviecr/skin/images/teal.png) 0% 0% repeat-x;
+    border-width: 1px;
     height: 40px;
     min-height: 40px;
     max-height: 40px;
+    padding: 2px;
     -moz-appearance: none;
     -moz-border-radius: 4px;
 }
 
 .container-dialog .container-wait-panel progressmeter .progress-bar {
-    background-image: url(chrome://viviecr/skin/images/btn_gray.png);
-    background-repeat: repeat-x;
+    background: transparent url(chrome://viviecr/skin/images/orange.png) 0% 0% repeat-x;
     -moz-appearance: none !important;
+    -moz-border-radius: 4px;
 }
 
 .container-dialog .container-wait-panel groupbox {

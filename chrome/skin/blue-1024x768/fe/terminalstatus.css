@@ -4,35 +4,45 @@
  *
  *-----------------------------------------------------------------------------
  */
+#vivipos-bottombox {
+    background: transparent url(chrome://viviecr/skin/images/black.png) 0% 0% repeat-x;
+}
+
 #status-bar {
     margin: 0px;
     padding: 0px;
+    -moz-box-align: center;
+}
+
+#status-bar statusbarpanel {
+    border-width: 0px;
+    padding: 0px;
+    -moz-appearance: none;
 }
 
 #status-bar vivisessionstatus {
-    background-color: transparent;
-    border-color: black;
     border-width: 1px;
-    color: black;
     font-size: x-small;
     text-align: center;
+    -moz-appearance: none;
 }
 
 #status-bar .console-current-user {
     background-color: transparent;
-    border-color: black;
     border-width: 1px;
-    color: black;
+    color: white;
     font-size: x-small;
     text-align: center;
+    -moz-appearance: none;
 }
 
 #status-bar .console-message-value {
     background-color: transparent;
     border-width: 1px;
-    color: black;
+    color: white;
     font-size: x-small;
     min-width: 80px;
+    -moz-appearance: none;
 }
 
 #status-bar viviclock {
