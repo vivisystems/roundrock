@@ -52,10 +52,6 @@
     width: 444px;
 }
 
-.main-overlay .left-panel #inputLinePanelContainer {
-    margin: 2px 6px 0px 6px;
-}
-
 .main-overlay .main-wait-panel {
     background: white none center center no-repeat;
     height: 140px;
@@ -91,7 +87,6 @@
     border: none;
     margin-top: 5px;
     -moz-appearance: none;
-    -moz-border-radius: 10px;
 }
 
 .main-overlay .page-panel .btn-down {
@@ -103,7 +98,6 @@
     border: none;
     margin-top: 10px;
     -moz-appearance: none;
-    -moz-border-radius: 10px;
 }
 
 .main-overlay .right-panel .info-panel {

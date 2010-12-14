@@ -8,6 +8,7 @@
 .main-overlay .cart-list {
     background: transparent;
     font-size: 14px;
+    margin-bottom: 6px;
 }
 
 .main-overlay .cart-list > .cart-list {

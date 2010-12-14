@@ -81,14 +81,22 @@
             var fnRows = 3;
             var fnCols = 6;
 
-            GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.rows', 3);
-            GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.columns', 6);
+            if (GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows') != fnRows) {
+                GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.rows', fnRows);
+            }
+            if (GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns') != fnCols) {
+                GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.columns', fnCols);
+            }
 
             var fixedFnRows = 4;
             var fixedFnCols = 6;
             
-            GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel.rows', 4);
-            GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel.columns', 6);
+            if (GeckoJS.Configure.read('vivipos.fec.settings.fixedfunctionpanel.rows') != fixedFnRows) {
+                GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel.rows', fixedFnRows);
+            }
+            if (GeckoJS.Configure.read('vivipos.fec.settings.fixedfunctionpanel.columns') != fixedFnCols) {
+                GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel.columns', fixedFnCols);
+            }
             
             var hideDeptScrollbar = true;
             var hidePLUScrollbar = true;

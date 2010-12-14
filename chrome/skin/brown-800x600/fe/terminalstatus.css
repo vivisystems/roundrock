@@ -1,0 +1,73 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End terminal status
+ *
+ *-----------------------------------------------------------------------------
+ */
+#vivipos-bottombox {
+    background: #93806F none;
+}
+
+#status-bar {
+    margin: 0px;
+    padding: 0px;
+    -moz-box-align: begin;
+}
+
+#status-bar statusbarpanel {
+    border-width: 0px;
+    padding: 0px;
+    -moz-appearance: none;
+}
+
+#status-bar vivisessionstatus {
+    background-color: transparent;
+    color: black;
+    font-size: x-small;
+    text-align: center;
+    -moz-appearance: none;
+}
+
+#status-bar .console-current-user {
+    background-color: transparent;
+    border-width: 2px;
+    color: black;
+    font-size: x-small;
+    text-align: center;
+    -moz-appearance: none;
+}
+
+#status-bar .console-message-value {
+    background-color: transparent;
+    border-width: 2px;
+    color: black;
+    font-size: x-small;
+    min-width: 80px;
+    -moz-appearance: none;
+}
+
+#status-bar viviclock {
+    background-color: transparent;
+    font-size: small;
+    -moz-appearance: none;
+}
+
+#status-bar .receiptStatus[status=on] {
+    list-style-image: url("chrome://viviecr/skin/images/gtk-yes.png");
+    margin: 0 10px 0 10px;
+    max-width: 18px;
+    max-height: 18px;
+    -moz-appearance: none;
+}
+
+#status-bar .receiptStatus[status=off] {
+    list-style-image: url("chrome://viviecr/skin/images/gtk-cancel.png");
+    margin: 0 10px 0 10px;
+    max-width: 18px;
+    max-height: 18px;
+    -moz-appearance: none;
+}
+
+.statusbarpanel-text {
+    display: none;
+}

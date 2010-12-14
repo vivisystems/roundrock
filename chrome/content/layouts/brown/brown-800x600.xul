@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/layout.dtd">
+
+<?xml-stylesheet href="chrome://viviecr/skin/fe/overlay-brown.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/vfdpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/function-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cartstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
+
+<?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartStatusPanelOverlay.xul" ?>
+
+<?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/keysetExtensions.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/terminalStatus.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/uireceipts.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/fixedFunctionPanelOverlay.xul" ?>
+
+<?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ?>
+
+<overlay id="brownLayoutOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script src="chrome://roundrock/content/layouts/brown/brown_800x600_layout_controller.js" type="application/x-javascript;version=1.7"/>
+
+    <box id="main-container">
+
+        <box id="mainPanel" flex="1" class="main-panel" orient="vertical">
+
+            <hbox flex="1" class="top-panel">
+
+                <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
+
+                    <box id="uiPanelContainer" flex="0" class="uiPanel"/>
+
+                    <hbox flex="1">
+                        <vbox flex="1">
+                            <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;" class="cart-list"/>
+                            <box id="promotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
+                        </vbox>
+                        <vbox class="page-panel">
+                            <button id="btnUp" class="btn-up" oncommand="$do('scrollByLines', '-11', 'Cart');"/>
+                            <button id="btnDown" class="btn-down" oncommand="$do('scrollByLines', '+11', 'Cart');"/>
+                        </vbox>
+                    </hbox>
+                    <box id="categoryPanelContainer" hidden="true" flex="0" panel="&layout.panel.departments;"/>
+                    <box id="productPanelContainer" hidden="true" flex="1" panel="&layout.panel.products;" class="product-panel"/>
+                </box>
+
+                <box id="rightPanel" flex="1" class="right-panel" orient="vertical">
+                    <vbox class="info-panel">
+                        <hbox align="center">
+                            <vbox class="cartstatus-panel" pack="center" align="center">
+                                <box id="cartStatusPanelContainer" flex="0" panel="&layout.panel.cartstatus;"/>
+                            </vbox>
+                            <spacer flex="1"/>
+                            <vbox class="return-mode-panel" align="center" pack="center">
+                                <label id="returnStatus" flex="0"/>
+                            </vbox>
+                            <spacer flex="1"/>
+                            <clock flex="0" align="right" class="clock-panel"/>
+                        </hbox>
+                    </vbox>
+
+                    <onscreenvfd id="onscreenvfd" value=""
+                                 flex="1"
+                                 class="vfd-vbox"
+                                 messageRowClass="messageRowClass"
+                                 messageLabelClass="messageLabelClass"
+                                 messageValueClass="messageValueClass"
+                                 summaryRowClass="summaryRowClass"
+                                 paymentClass="paymentClass"
+                                 paymentLabelSize="12"
+                                 paymentValueSize="8"
+                                 paymentLabelClass="vfdLabelClass"
+                                 paymentValueClass="paymentValueClass"
+                                 changeClass="changeClass"
+                                 changeLabelSize="12"
+                                 changeValueSize="8"
+                                 changeLabelClass="vfdLabelClass"
+                                 changeValueClass="changeValueClass"
+                                 totalClass="totalClass"
+                                 totalLabelClass="vfdLabelClass"
+                                 totalValueClass="totalValueClass"
+                                 trainingClass="vfd-pad-training"
+                                 inputController="inputLineTextBox"/>
+
+            </box>
+
+            </hbox>
+
+            <hbox id="bottomPanel" class="bottom-panel">
+                <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;" class="function-panel"/>
+                <spacer flex="1"/>
+                <vbox id="fixedFunctionPanelContainer" class="cmd-panel"/>
+            </hbox>
+
+        </box>
+
+    </box>
+
+</overlay>

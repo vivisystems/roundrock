@@ -6,7 +6,10 @@
  */
 
 .promotions-vbox {
-    background-color: #1e1b14;
+    background-color: #93806F;
+    border: 2px solid #736048;
+    margin: 6px 0px 6px 6px;
+    -moz-border-radius: 6px;
 }
 
 .promotions-vbox row {
@@ -36,7 +39,7 @@
 .promotions-subtotal {
     background-color: transparent;
     border-width: 0px;
-    color: red;
+    color: #FFFD75;
     font-family: monospace;
     font-size: 14pt;
     font-weight: bold !important;

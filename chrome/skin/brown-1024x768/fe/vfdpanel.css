@@ -26,9 +26,17 @@
 
 .main-overlay .vfd-vbox .messageRowClass {
     background-color: transparent;
+    border: 2px solid #736048;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    width: 535px;
+    max-width: 535px;
+    min-width: 535px;
     margin: 2px 12px;
     padding: 0px 5px;
     -moz-appearance: none;
+    -moz-border-radius: 4px;
 }
 
 .main-overlay .vfd-vbox .messageLabelClass {
@@ -36,7 +44,7 @@
 }
 
 .main-overlay .vfd-vbox .messageValueClass {
-    color: #A45b0d;
+    color: #94500d;
     font-size: 16pt;
 }
 

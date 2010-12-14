@@ -110,7 +110,11 @@
 
                 this.onClearBuffer = function(evt) {
 
-                    if (this._fromKeypad) self.setText0_1('', true);
+                    if(self._inputController) {
+                        self._inputController.value = evt.data;
+                    }else {
+                        if (this._fromKeypad) self.setText0_1('', true);
+                    }
                 }
 
                 this.onSetQty = function(evt) {
@@ -229,6 +233,7 @@
                     self.setText0_1(evt.data);
                 }
                 this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
+                this.keypadevents.addListener('onClearBuffer', self.onAddBuffer, self);
 
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
@@ -265,11 +270,6 @@
 
                 this.ready = function() {
                     self._inputController = document.getElementById(self.getAttribute('inputController'));
-
-                    if (!self._inputController) {
-                        self.keypadevents.addListener('onClearBuffer', self.onAddBuffer, self);
-                    }
-
                 }
                 window.addEventListener('load', this.ready, true);
 
@@ -280,7 +280,7 @@
             <![CDATA[
                 if (this.keypadevents) {
                     this.keypadevents.removeListener('onAddBuffer', this.onAddBuffer);
-                    if (!self._inputController) this.keypadevents.removeListener('onClearBuffer', this.onAddBuffer);
+                    this.keypadevents.removeListener('onClearBuffer', this.onAddBuffer);
                 }
                 if (this.cartevents) {
                     this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);

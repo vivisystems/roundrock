@@ -1,0 +1,105 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End terminal status
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.promotions-vbox {
+    background-color: #93806F;
+    border: 2px solid #736048;
+    margin: 6px 0px 6px 6px;
+    -moz-border-radius: 6px;
+}
+
+.promotions-vbox row {
+    -moz-box-align: center;
+}
+
+.promotions-vbox textbox {
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.promotions-title {
+    background-color: transparent;
+    border-width: 0px;
+    color: #f49b1d;
+    font-family: monospace;
+    font-size: 12pt;
+    font-weight: bold !important;
+    width: 170px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.promotions-subtotal {
+    background-color: transparent;
+    border-width: 0px;
+    color: #FFFD75;
+    font-family: monospace;
+    font-size: 12pt;
+    font-weight: bold !important;
+    text-align: right;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.promotions-applies {
+    display: none;
+}
+
+.promotion-icon1 {
+    height: 32px;
+}
+
+.promotions-tree tree {
+    margin: 0px;
+    border: none;
+    color: #f4f4f4;
+    background-color: #1e1b14;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.promotions-tree treechildren::-moz-tree-row(selected) {
+    background-color: #f4f4f4;
+}
+
+.promotions-tree treechildren::-moz-tree-cell-text(selected) {
+    color: #1e1b14;
+}
+
+.promotions-tree .tree-scrollable-columns {
+    max-height: 0px;
+}
+
+
+.promotions-details #promotion_name,
+.promotions-details #promotion_code,
+.promotions-details #name {
+    text-align: left;
+}
+
+.promotions-details #no {
+    text-align: center;
+}
+
+.promotions-details #name {
+    width: 150px;
+}
+
+.promotions-details #current_qty,
+.promotions-details #current_subtotal,
+.promotions-details #discount_subtotal,
+.promotions-details #current_tax {
+    text-align: right;
+    width: 60px;
+}

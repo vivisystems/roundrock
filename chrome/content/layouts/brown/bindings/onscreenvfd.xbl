@@ -108,7 +108,12 @@
 
                 this.onClearBuffer = function(evt) {
 
-                    if (this._fromKeypad) self.setText0_1('', true);
+                    if (self._inputController) {
+                        self._inputController.value = evt.data;
+                    }
+                    else {
+                        if (this._fromKeypad) self.setText0_1('', true);
+                    }
                 }
 
                 this.onSetQty = function(evt) {
@@ -132,9 +137,9 @@
                         var payment = "0";
 
                         if (transaction != null && !(transaction.isSubmit() || transaction.isCancel())) {
-                            total = self.format(transaction.getTotal());
-                            remain = self.format(transaction.getRemainTotal());
-                            payment = self.format(transaction.getPaymentSubtotal(true));
+                            total = this.format(transaction.getTotal());
+                            remain = this.format(transaction.getRemainTotal());
+                            payment = this.format(transaction.getPaymentSubtotal());
                         }else {
                             total = this.format(0);
                             remain = this.format(0);
@@ -215,11 +220,7 @@
                 this.format = function(number) {
                     self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-                    var options = {
-                        places: ((self.roundPrecision>0)? self.roundPrecision : 0),
-                    };
                     // format display precision
-                    //return GeckoJS.NumberHelper.format(number, options);
                     return GeckoJS.String.numberFormat(number, ((self.roundPrecision>0)? self.roundPrecision : 0), '', '');
 
                 }
@@ -228,6 +229,7 @@
                     self.setText0_1(evt.data);
                 }
                 this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
+                this.keypadevents.addListener('onClearBuffer', this.onClearBuffer, this);
 
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
@@ -264,11 +266,6 @@
 
                 this.ready = function() {
                     self._inputController = document.getElementById(self.getAttribute('inputController'));
-
-                    if (!self._inputController) {
-                        self.keypadevents.addListener('onClearBuffer', self.onAddBuffer, self);
-                    }
-
                 }
                 window.addEventListener('load', this.ready, true);
 
@@ -279,7 +276,7 @@
             <![CDATA[
                 if (this.keypadevents) {
                     this.keypadevents.removeListener('onAddBuffer', this.onAddBuffer);
-                    if (!self._inputController) this.keypadevents.removeListener('onClearBuffer', this.onAddBuffer);
+                    this.keypadevents.removeListener('onClearBuffer', this.onAddBuffer);
                 }
                 if (this.cartevents) {
                     this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);

@@ -1,0 +1,78 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Dialog Container Styles
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.container-dialog {
+    background: white;
+}
+
+.container-wait-dialog * {
+    cursor: wait !important;
+}
+
+.container-dialog .container-wait-panel *,
+.container-dialog .container-interruptible-wait-panel * {
+    cursor: wait !important;
+}
+
+.container-dialog .container-wait-panel {
+    background: white;
+    height: 120px;
+    margin-left: 100px;
+    margin-top: 240px;
+    max-height: 120px;
+    max-width: 600px;
+    min-height: 120px;
+    min-width: 600px;
+    width: 600px;
+}
+
+.container-dialog .container-interruptible-wait-panel {
+    height: 165px;
+    margin-left: 100px;
+    margin-top: 215px;
+    max-height: 165px;
+    max-width: 600px;
+    min-height: 165px;
+    min-width: 600px;
+    width: 600px;
+    -moz-border-radius: 8px;
+}
+
+.container-dialog .container-main {
+    border: 3px solid #c1ab8e;
+    margin: 8px;
+    padding: 4px;
+    -moz-border-radius: 8px;
+}
+
+.container-interruptible-wait-panel .container-main,
+.container-wait-panel  .container-main,
+.container-wait-dialog .container-main{
+    background: url(../images/wait_bg.gif) repeat-x;
+    border: 1px solid #714638;
+    margin:0px !important;
+    -moz-border-radius: 0;
+    -moz-appearance: none;
+}
+
+.layout-dialog .container-main {
+    background: transparent;
+}
+
+.container-dialog .container-top {
+    border-bottom: 1px solid #a98f6e;
+    padding-bottom:4px;
+    margin-bottom: 4px;
+}
+
+.container-dialog .container-left {
+    border-right: 1px solid #a98f6e;
+}
+
+.container-dialog .container-right {
+    margin: 4px;
+}

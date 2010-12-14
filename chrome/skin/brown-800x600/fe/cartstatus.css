@@ -1,0 +1,34 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen Cart Status
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay #cartStatusPanelContainer {
+    background-color: transparent;
+    font-size: 14pt;
+    text-align: center;
+    margin: 0px;
+}
+
+.main-overlay .cart-status[status=no-txn] {
+}
+
+.main-overlay .cart-status[status=open-txn] {
+}
+
+.main-overlay .cart-status[status=open-recalled-txn] {
+}
+
+.main-overlay .cart-status[status=closed-txn] {
+}
+
+.main-overlay .cart-status[status=stored-txn] {
+}
+
+.main-overlay .cart-status[status=voided-txn] {
+}
+
+.main-overlay .cart-status[status=locked-txn] {
+}

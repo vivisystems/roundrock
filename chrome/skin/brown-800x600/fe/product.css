@@ -1,0 +1,167 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front End Product Panel
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel {
+    margin: 0px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+}
+
+.main-overlay .prodscrollablepanel vivibuttonpanel {
+    margin: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ *  Front-end product buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel .button-product {
+    background: transparent none !important;
+    border: 0px solid;
+    color: #531 !important;
+    padding: 14px 0px 5px 0px;
+    margin: 0px 2px;
+    height: 62px;
+    max-height: 62px;
+    min-height: 62px;
+    -moz-appearance: none;
+    -moz-background-clip: border;
+    -moz-user-focus: ignore;
+}
+
+.main-overlay .button-product hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.main-overlay .button-product description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ * scroll buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .product-scroll-up-button {
+    background: transparent url(../images/departUp.png) no-repeat center center;
+    border: 0px;
+    margin: 2px 0px 0px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .product-scroll-up-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .product-scroll-up-button label {
+    display: none;
+}
+
+.main-overlay .product-scroll-up-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .product-scroll-up-button description {
+    display: none;
+}
+
+.main-overlay .product-scroll-down-button {
+    background: transparent url(../images/departDown.png) no-repeat center center;
+    border: 0px;
+    margin: 0px 0px 2px 0px;
+    max-height: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+.main-overlay .product-scroll-down-button[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.main-overlay .product-scroll-down-button[disabled=true] {
+    background-position: -80px 0;
+}
+
+.main-overlay .product-scroll-down-button label {
+    display: none;
+}
+
+.main-overlay .product-scroll-down-button description {
+    display: none;
+}
+
+.main-overlay .prodscrollablepanel .scrollablepanel-scrollbar {
+	margin: 2px 0 2px 2px;
+        display: none;
+}
+
+/*--------------------------------------------------------------------------
+ *
+ * PRODUCT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.main-overlay .prodscrollablepanel .product-button-color-default,
+.main-overlay .prodscrollablepanel .product-button-color-1,
+.main-overlay .prodscrollablepanel .product-button-color-2,
+.main-overlay .prodscrollablepanel .product-button-color-3,
+.main-overlay .prodscrollablepanel .product-button-color-4,
+.main-overlay .prodscrollablepanel .product-button-color-5,
+.main-overlay .prodscrollablepanel .product-button-color-6,
+.main-overlay .prodscrollablepanel .product-button-color-7,
+.main-overlay .prodscrollablepanel .product-button-color-8,
+.main-overlay .prodscrollablepanel .product-button-color-9,
+.main-overlay .prodscrollablepanel .product-button-color-10,
+.main-overlay .prodscrollablepanel .product-button-color-11 {
+    background: transparent none !important;
+    -moz-appearance: none;
+}
+
+.main-overlay .prodscrollablepanel .product-button-color-default[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-1[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-2[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-3[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-4[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-5[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-6[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-7[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-8[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-9[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-10[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-11[disabled=false]:active,
+.main-overlay .prodscrollablepanel .product-button-color-default[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-1[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-2[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-3[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-4[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-5[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-6[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-7[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-8[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-9[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-10[disabled=false][selected],
+.main-overlay .prodscrollablepanel .product-button-color-11[disabled=false][selected] {
+    border-width: 0px !important;
+}

@@ -1,0 +1,86 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Main Screen VFD
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.main-overlay .vfd-pad {
+}
+
+.main-overlay .vfd-vbox textbox {
+    background-color: transparent;
+    border: 0px !important;
+    font-family: monospace;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.main-overlay .vfd-vbox .messageRowClass {
+    background-color: transparent;
+    border: 2px solid #736048;
+    height: 24px;
+    min-height: 24px;
+    max-height: 24px;
+    width: 412px;
+    max-width: 412px;
+    min-width: 412px;
+    margin-left: 8px;
+    -moz-appearance: none;
+    -moz-border-radius: 4px;
+}
+
+.main-overlay .vfd-vbox .messageLabelClass {
+    display: none;
+}
+
+.main-overlay .vfd-vbox .messageValueClass {
+    color: #A45b0d;
+    font-size: 12pt;
+}
+
+.main-overlay .vfd-vbox .summaryRowClass {
+    border-top: 0px;
+    -moz-appearance: none;
+}
+
+.main-overlay .vfd-vbox .vfdLabelClass {
+    color: #FFFD75;
+    font-size: 16px;
+    padding: 20px 0px 0px 10px;
+    text-align: left;
+}
+
+.main-overlay .vfd-vbox .changeClass {
+    max-width: 137px;
+    min-width: 137px;
+    width: 137px;
+}
+
+.main-overlay .vfd-vbox .paymentClass {
+    max-width: 145px;
+    min-width: 145px;
+    width: 145px;
+}
+
+.main-overlay .vfd-vbox .totalValueClass,
+.main-overlay .vfd-vbox .changeValueClass,
+.main-overlay .vfd-vbox .paymentValueClass {
+    color: black;
+    font-family: "7 Segment";
+    font-size: 32pt;
+    padding-right: 5px;
+    text-align: right;
+    -moz-box-flex: 1;
+    -moz-box-align: end;
+}
+
+.main-overlay .vfd-pad-training {
+    background-color: #604020;
+}
+
+.main-overlay .vfd-pad-training textbox {
+    color: black !important;
+}

@@ -1,0 +1,54 @@
+/*  skin for main screen ------------------------------------------------------------- */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+.uidisplay-vfdPad {
+    padding: 5px 0px 16px 0px;
+    margin-right: 8px;
+    -moz-border-radius: 6px;
+}
+
+.uidisplay-field-label {
+    color: black;
+    max-width: 58px;
+    margin: 0px 3px 0px 0px;
+    padding: 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 10px;
+    text-align: right;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.uidisplay-field-value {
+    color: black;
+    margin: 0px;
+    min-width: 75px;
+    padding: 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-family: monospace;
+    font-size: 12px;
+    text-align: left;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.uidisplay-vfdPad vivisessionstatus row textbox:nth-child(3) {
+    min-width: 45px;
+    max-width: 45px;
+    width: 45px;
+}
+
+.uidisplay-vfdPad vivisessionstatus row textbox:nth-child(4) {
+    min-width: 40px;
+    max-width: 40px;
+    width: 40px;
+}
