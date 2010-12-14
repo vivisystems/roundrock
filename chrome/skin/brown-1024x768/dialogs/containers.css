@@ -69,7 +69,7 @@
 
 .container-dialog .container-wait-panel .container-main,
 .container-dialog .container-interruptible-wait-panel .container-main {
-    background: url(../images/wait_bg.gif) repeat-x;
+    background: transparent url(chrome://viviecr/skin/images/wait_bg.gif) 0% 0% repeat-x;
     border: 1px solid #714638;
     margin: 0px;
     padding: 30px 40px 10px 40px;
@@ -78,17 +78,21 @@
 
 .container-dialog .container-wait-panel progressmeter {
     background-color: #D3C0AF;
-    border: 1px solid #714638;
-    height: 32px;
-    padding: 1px;
-    min-height: 32px;
-    max-height: 32px;
+    border: 2px solid #714638;
+    height: 40px;
+    padding: 2px;
+    min-height: 40px;
+    max-height: 40px;
     -moz-appearance: none;
     -moz-border-radius: 4px;
+    -moz-border-top-colors: #714638 #A3907F;
+    -moz-border-right-colors: #A3907F #714638;
+    -moz-border-bottom-colors: #714638 #A3907F;
+    -moz-border-left-colors: #714638 #A3907F;
 }
 
 .container-dialog .container-wait-panel progressmeter .progress-bar {
-    background: transparent url(chrome://viviecr/skin/images/black.png) 0 0 repeat-x;
+    background: transparent url(chrome://viviecr/skin/images/black.png) 50% 50% repeat-x;
     -moz-appearance: none !important;
     -moz-border-radius: 2px;
 }

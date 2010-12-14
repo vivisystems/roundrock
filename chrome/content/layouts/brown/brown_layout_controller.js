@@ -25,6 +25,15 @@
                 cart.addEventListener('onReturnAll', this.onReturnAll, this);
                 cart.addEventListener('onReturnCleared', this.onReturnCleared, this);
             }
+
+            // dynamically register control panel for fixed function panel
+            var prefService = Components.classes["@mozilla.org/preferences-service;1"]  
+                                            .getService(Components.interfaces.nsIPrefService);  
+            var branch = prefService.getDefaultBranch("");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.label", "chrome://roundrock/locale/messages.properties");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.path", "chrome://roundrock/content/layouts/brown/fixedfuncpanelecrprefs.xul");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.roles", "acl_manage_function_panel");
         },
 
         onReturnSingle: function() {
@@ -47,32 +56,44 @@
         resizePanels: function (initial) {
             
             // resizing product/function panels
+            var deptPanel = document.getElementById('catescrollablepanel');
+            var deptPanelContainer = document.getElementById('categoryPanelContainer');
             var pluPanel = document.getElementById('prodscrollablepanel');
+            var pluPanelContainer = document.getElementById('productPanelContainer');
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
+            var fixedFnPanel = document.getElementById('fixedFunctionpanel');
             var condPanel = document.getElementById('condimentscrollablepanel');
+
+            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
+            if (departmentRows == null) departmentRows = 3;
+
+            var departmentCols = 5;
+
+            var pluCols = 5;
+
+            // pluRows + departmentRows = 5, pluRows >= 0, departmentRows >= 0
+            if (departmentRows < 0) departmentRows = 0;
+            if (departmentRows > 5) departmentRows = 5;
+
+            var pluRows = 5 - departmentRows;
             
-            var pluRows = 3;
-            if (GeckoJS.Configure.read('vivipos.fec.settings.PluRows') != pluRows) {
-                GeckoJS.Configure.write('vivipos.fec.settings.PluRows', pluRows);
-            }
-            var pluCols = 4;
-            if (GeckoJS.Configure.read('vivipos.fec.settings.PluRows') != pluCols) {
-                GeckoJS.Configure.write('vivipos.fec.settings.PluRows', pluCols);
-            }
-
             var fnRows = 3;
-            if (GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows') != fnRows) {
-                GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.rows', fnRows);
-            }
+            var fnCols = 6;
 
-            var fnCols = 5;
-            if (GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns') != fnCols) {
-                GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.columns', fnCols);
-            }
+            GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.rows', 3);
+            GeckoJS.Configure.write('vivipos.fec.settings.functionpanel.columns', 6);
 
+            var fixedFnRows = 4;
+            var fixedFnCols = 6;
+            
+            GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel.rows', 4);
+            GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel.columns', 6);
+            
+            var hideDeptScrollbar = true;
             var hidePLUScrollbar = true;
             var hideFPScrollbar = true;
+            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
 
             var condRows = GeckoJS.Configure.read('vivipos.fec.settings.CondimentRows');
             if (condRows == null) condRows = 7;
@@ -80,6 +101,7 @@
             var condCols = GeckoJS.Configure.read('vivipos.fec.settings.CondimentCols');
             if (condCols == null) condCols = 4;
 
+            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.blue.CropPLULabel') || false;
 
             if (condPanel &&
@@ -100,7 +122,40 @@
                 }
             }
 
-            if (pluPanel) {
+            if (deptPanel && !deptPanelContainer.hidden) {
+                if (initial ||
+                    (deptPanel.getAttribute('rows') != departmentRows) ||
+                    (deptPanel.getAttribute('cols') != departmentCols) ||
+                    (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst) ||
+                    (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
+                    (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
+                    (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
+
+                    deptPanel.setAttribute('rows', departmentRows);
+                    deptPanel.setAttribute('cols', departmentCols);
+
+                    if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
+                    else deptPanel.removeAttribute('crop');
+
+                    if ((departmentRows > 0) && (departmentCols > 0)) {
+                        deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
+                        deptPanel.setAttribute('hidden', false);
+                        deptPanel.initGrid();
+
+                        deptPanel.datasource.refreshView();
+                        deptPanel.vivibuttonpanel.refresh();
+                    }
+                    else {
+                        deptPanel.setAttribute('hidden', true);
+                    }
+                }
+
+                if (departmentRows > 0 && departmentCols > 0) {
+                    deptPanel.vivibuttonpanel.resizeButtons();
+                }
+            }
+
+            if (pluPanel && !pluPanelContainer.hidden) {
                 if (initial ||
                     (pluPanel.getAttribute('rows') != pluRows) ||
                     (pluPanel.getAttribute('cols') != pluCols) ||
@@ -130,31 +185,51 @@
                     pluPanel.vivibuttonpanel.resizeButtons();
                 }
             }
-
+            
             if (fnPanel && !fnPanelContainer.hidden) {
                 fnPanel.setAttribute('hideScrollbar', hideFPScrollbar)
                 fnPanel._showHideScrollbar(hideFPScrollbar);
 
                 // check if rows/columns have changed
-                var currentRows = fnPanel.rows;
-                var currentColumns = fnPanel.columns;
+                let currentRows = fnPanel.rows;
+                let currentColumns = fnPanel.columns;
 
                 if (initial || (currentRows != fnRows) ||
                     (currentColumns != fnCols)) {
 
                     // need to change layout, first retrieve h/vspacing
 
-                    var hspacing = 0;
-                    var vspacing = 0;
+                    let hspacing = fnPanel.hspacing;
+                    let vspacing = fnPanel.vspacing;
 
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                 }
                 fnPanel.width = fnPanel.boxObject.width;
             }
+
+            if (fixedFnPanel) {
+                fixedFnPanel.setAttribute('hideScrollbar', hideFPScrollbar)
+                fixedFnPanel._showHideScrollbar(hideFPScrollbar);
+
+                // check if rows/columns have changed
+                let currentRows = fixedFnPanel.rows;
+                let currentColumns = fixedFnPanel.columns;
+
+                if (initial || (currentRows != fixedFnRows) ||
+                    (currentColumns != fixedFnCols)) {
+
+                    // need to change layout, first retrieve h/vspacing
+
+                    let hspacing = fixedFnPanel.hspacing;
+                    let vspacing = fixedFnPanel.vspacing;
+
+                    fixedFnPanel.setSize(fixedFnRows, fixedFnCols, hspacing, vspacing);
+                }
+                fixedFnPanel.width = fixedFnPanel.boxObject.width;
+            }
         },
         
         resetLayout: function (initial) {
-            
             // not any layout templates support it
             var showToolbar = false;
             var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox');
@@ -214,18 +289,6 @@
         
         var layout = GeckoJS.Controller.getInstanceByName('Layout');
         if (layout) layout.initial();
-
-        $('#btnUp').click(function() {
-            $('#cartList').each(function() {
-                this._scrollButtonUp.click();
-            });
-        });
-
-        $('#btnDown').click(function() {
-            $('#cartList').each(function() {
-                this._scrollButtonDown.click();
-            });
-        });
 
     }, false);
     

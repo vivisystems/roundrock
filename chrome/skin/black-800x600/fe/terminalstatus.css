@@ -7,7 +7,7 @@
 #status-bar {
     margin: 0px;
     padding: 0px;
-    -moz-box-align: center;
+    -moz-box-align: begin;
 }
 
 #status-bar vivisessionstatus {

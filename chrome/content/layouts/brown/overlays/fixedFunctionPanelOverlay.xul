@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<overlay id="functionPanelOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <box id="fixedFunctionPanelContainer" orient="horizontal">
+
+        <!-- Begin FuncBtns -->
+        <vivifuncpanelecr
+            id="fixedFunctionpanel"
+            class="vivifuncpanelecr_function_panel"
+            label="%d/%m"
+            rows="4" columns="1" hspacing="2" vspacing="2"
+            homePage="1"
+            controlLocation="left"
+            dir="normal"
+            maxpage="1"
+            wrap="0"
+            flex="1"
+            mode="normal"
+            restrictMode="normal"
+            disabled="false"
+            prefix="vivipos.fec.settings.fixedfunctionpanel"
+            registry="vivipos.fec.registry.function.programmable"
+            panel_spacer_class="vivifuncpanelecr_spacer"
+            control_panel_class="vivifuncpanelecr_control_panel"
+            control_scroll_left_class="vivifuncpanelecr_control_scroll_left"
+            control_scroll_right_class="vivifuncpanelecr_control_scroll_right"
+            control_label_class="vivifuncpanelecr_control_label"
+            control_home_class="vivifuncpanelecr_control_home"
+            button_panel_class="vivifuncpanelecr_button_panel"
+            default_button_color="function-button-color-default"
+            default_button_fontsize="medium"
+            matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
+            matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
+            matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"
+            matrix_button_obsolete_class="vivifuncpanelecr_matrix_button_obsolete"
+            />
+        <!-- End FuncBtns -->
+
+  </box>
+</overlay>

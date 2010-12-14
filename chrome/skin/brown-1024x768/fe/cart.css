@@ -145,7 +145,7 @@
 .main-overlay .cart-list treechildren::-moz-tree-row(treeVerifyAge) {background-color: lightblue;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
 .main-overlay .cart-list treechildren::-moz-tree-row(treeRefundItem) {background-color: beige;}
-.main-overlay .cart-list treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px solid black !important;}
+.main-overlay .cart-list treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px solid #635036 !important;}
 
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
 .main-overlay .cart-list treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}

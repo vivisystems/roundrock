@@ -4,10 +4,19 @@
  *
  *-----------------------------------------------------------------------------
  */
+#vivipos-bottombox {
+    background: #93806F none;
+}
+
 #status-bar {
     margin: 0px;
     padding: 0px;
-    background-color: #93806F;
+    -moz-box-align: begin;
+}
+
+#status-bar statusbarpanel {
+    border-width: 0px;
+    padding: 0px;
     -moz-appearance: none;
 }
 

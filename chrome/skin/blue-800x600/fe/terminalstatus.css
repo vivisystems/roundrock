@@ -4,14 +4,18 @@
  *
  *-----------------------------------------------------------------------------
  */
+#vivipos-bottombox {
+    background: transparent url(chrome://viviecr/skin/images/black.png) 50% 50% repeat-x;
+}
+
 #status-bar {
     margin: 0px;
     padding: 0px;
+    -moz-box-align: center;
 }
 
 #status-bar statusbarpanel {
     border-width: 0px;
-    background: transparent url(chrome://viviecr/skin/images/black.png) 0% 0% repeat-x;
     padding: 0px;
     -moz-appearance: none;
 }

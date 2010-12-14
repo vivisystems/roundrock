@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="clock">
+        <content>
+            <xul:hbox anonid="clock" xbl:inherits="class,flex,align,dir,pack,orient,style">
+                <xul:label value="" anonid="date" flex="1"/>
+                <xul:label value="" anonid="time" flex="1"/>
+            </xul:hbox>
+        </content>
+
+
+
+        <xbl:implementation>
+
+            <field name="_label">
+                document.getAnonymousElementByAttribute(this, "anonid", "clock");
+            </field>
+
+            <field name="_date">
+                document.getAnonymousElementByAttribute(this, "anonid", "date");
+            </field>
+
+            <field name="_time">
+                document.getAnonymousElementByAttribute(this, "anonid", "time");
+            </field>
+
+            <property name="value" onget="this._date.getAttribute('value') + ' ' + this._time.getAttribute('value');" readonly="true" />
+            
+            <xbl:constructor>
+                this.startClock();
+            </xbl:constructor>
+
+            <xbl:destructor>
+                this.stopClock();
+            </xbl:destructor>
+
+            <method name="startClock">
+                <body><![CDATA[
+                    var el = this._label;
+                    var dl = this._date;
+                    var tl = this._time
+                    el.setTime = function() {
+
+                        var now = new Date();
+                        var timeNow = now.toLocaleTimeString();
+                        var dateNow = now.toLocaleDateString();
+                        
+                        dl.setAttribute('value', dateNow);
+                        tl.setAttribute('value', timeNow);
+
+                    }
+                    el.intervalId = setInterval(el.setTime, 1000);
+
+                    el.setTime();
+
+          ]]>
+                </body>
+            </method>
+
+
+            <method name="stopClock">
+                <body><![CDATA[
+                    var el = this._label;
+                    try {
+                        clearInterval(el.intervalId);
+                    } catch(e) {}
+
+          ]]>
+                </body>
+            </method>
+
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>

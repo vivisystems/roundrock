@@ -5,13 +5,13 @@
  *-----------------------------------------------------------------------------
  */
 #vivipos-bottombox {
-    background: transparent url(chrome://viviecr/skin/images/black.png) 0% 0% repeat-x;
+    background: transparent url(chrome://viviecr/skin/images/black.png) 50% 50% repeat-x;
 }
 
 #status-bar {
     margin: 0px;
     padding: 0px;
-    -moz-box-align: center;
+    -moz-box-align: begin;
 }
 
 #status-bar statusbarpanel {
