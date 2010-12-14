@@ -91,6 +91,7 @@
 
 .main-overlay .right-panel .info-panel {
     background: transparent;
+    margin: 2px 0px;
     padding: 2px 0px;
 }
 
@@ -102,16 +103,16 @@
 }
 
 .main-overlay .right-panel .info-panel .return-mode-panel {
-    background: transparent;
+    background: #93806F none;
     border: 2px solid;
     color: #333334;
-    font-size: 14pt;
-    height: 28px;
-    max-height: 28px;
-    max-width: 110px;
-    min-height: 28px;
-    min-width: 110px;
-    width: 110px;
+    font-size: 12pt;
+    height: 24px;
+    max-height: 24px;
+    max-width: 90px;
+    min-height: 24px;
+    min-width: 90px;
+    width: 90px;
     -moz-border-top-colors: #424851 #fff;
     -moz-border-right-colors: #424851 #fff;
     -moz-border-bottom-colors: #424851 #fff;
@@ -120,14 +121,14 @@
 }
 
 .main-overlay .right-panel .info-panel .cartstatus-panel {
-    background: transparent;
+    background: #93806F none;
     border: 2px solid;
     color: #333334;
-    height: 28px;
+    height: 24px;
     margin-left: 8px;
-    max-height: 28px;
+    max-height: 24px;
     max-width: 110px;
-    min-height: 28px;
+    min-height: 24px;
     min-width: 110px;
     width: 110px;
     -moz-border-top-colors: #424851 #fff;
