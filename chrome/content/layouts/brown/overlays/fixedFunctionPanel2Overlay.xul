@@ -6,14 +6,14 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <box id="fixedFunctionPanelContainer" orient="horizontal">
+  <box id="fixedFunctionPanel2Container" orient="horizontal">
 
         <!-- Begin FuncBtns -->
         <vivifuncpanelecr
-            id="fixedFunctionpanel"
+            id="fixedFunctionpanel2"
             class="vivifuncpanelecr_function_panel"
             label="%d/%m"
-            rows="4" columns="5" hspacing="2" vspacing="2"
+            rows="4" columns="1" hspacing="2" vspacing="2"
             homePage="1"
             controlLocation="left"
             dir="normal"
@@ -23,7 +23,7 @@
             mode="normal"
             restrictMode="normal"
             disabled="false"
-            prefix="vivipos.fec.settings.fixedfunctionpanel"
+            prefix="vivipos.fec.settings.fixedfunctionpanel2"
             registry="vivipos.fec.registry.function.programmable"
             panel_spacer_class="vivifuncpanelecr_spacer"
             control_panel_class="vivifuncpanelecr_control_panel"

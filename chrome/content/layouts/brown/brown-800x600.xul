@@ -28,6 +28,7 @@
 <?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/uireceipts.xul" ?>
 <?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/fixedFunctionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://roundrock/content/layouts/brown/overlays/fixedFunctionPanel2Overlay.xul" ?>
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ?>
 
@@ -100,14 +101,14 @@
                                  trainingClass="vfd-pad-training"
                                  inputController="inputLineTextBox"/>
 
-            </box>
+                </box>
 
             </hbox>
 
             <hbox id="bottomPanel" class="bottom-panel">
                 <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;" class="function-panel"/>
-                <spacer flex="1"/>
-                <vbox id="fixedFunctionPanelContainer" class="cmd-panel"/>
+                <vbox id="fixedFunctionPanel2Container" class="extra2-panel"/>
+                <vbox id="fixedFunctionPanelContainer" class="extra-panel"/>
             </hbox>
 
         </box>

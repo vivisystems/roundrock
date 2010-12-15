@@ -25,6 +25,7 @@
     background: url(../images/btn_product.gif) no-repeat center center;
     border: none;
     color: #FFF;
+    margin: 2px;
     padding: 2px;
     -moz-appearance: none;
     -moz-border-radius: 8px;

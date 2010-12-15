@@ -26,7 +26,7 @@
                 cart.addEventListener('onReturnCleared', this.onReturnCleared, this);
             }
 
-            // dynamically register control panel for fixed function panel
+            // dynamically register control panels for fixed function panels
             var prefService = Components.classes["@mozilla.org/preferences-service;1"]  
                                             .getService(Components.interfaces.nsIPrefService);  
             var branch = prefService.getDefaultBranch("");
@@ -34,6 +34,11 @@
             branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.label", "chrome://roundrock/locale/messages.properties");
             branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.path", "chrome://roundrock/content/layouts/brown/fixedfuncpanelecrprefs.xul");
             branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.roles", "acl_manage_function_panel");
+
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel2.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel2.label", "chrome://roundrock/locale/messages.properties");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel2.path", "chrome://roundrock/content/layouts/brown/fixedfuncpanelecr2prefs.xul");
+            branch.setCharPref("vivipos.fec.settings.controlpanels.config.fixedfunctionpanel2.roles", "acl_manage_function_panel");
         },
 
         onReturnSingle: function() {
@@ -59,6 +64,7 @@
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
             var fixedFnPanel = document.getElementById('fixedFunctionpanel');
+            var fixedFnPanel2 = document.getElementById('fixedFunctionpanel2');
             var condPanel = document.getElementById('condimentscrollablepanel');
 
             var fnRows = 4;
@@ -81,10 +87,17 @@
                 GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel.columns', fixedFnCols);
             }
             
-            var hideDeptScrollbar = true;
-            var hidePLUScrollbar = true;
+            var fixedFn2Rows = 4;
+            var fixedFn2Cols = 1;
+
+            if (GeckoJS.Configure.read('vivipos.fec.settings.fixedfunctionpanel2.rows') != fixedFn2Rows) {
+                GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel2.rows', fixedFn2Rows);
+            }
+            if (GeckoJS.Configure.read('vivipos.fec.settings.fixedfunctionpanel2.columns') != fixedFn2Cols) {
+                GeckoJS.Configure.write('vivipos.fec.settings.fixedfunctionpanel2.columns', fixedFn2Cols);
+            }
+
             var hideFPScrollbar = true;
-            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
 
             var condRows = GeckoJS.Configure.read('vivipos.fec.settings.CondimentRows');
             if (condRows == null) condRows = 7;
@@ -156,6 +169,27 @@
                     fixedFnPanel.setSize(fixedFnRows, fixedFnCols, hspacing, vspacing);
                 }
                 fixedFnPanel.width = fixedFnPanel.boxObject.width;
+            }
+
+            if (fixedFnPanel2) {
+                fixedFnPanel2.setAttribute('hideScrollbar', hideFPScrollbar)
+                fixedFnPanel2._showHideScrollbar(hideFPScrollbar);
+
+                // check if rows/columns have changed
+                let currentRows = fixedFnPanel2.rows;
+                let currentColumns = fixedFnPanel2.columns;
+
+                if (initial || (currentRows != fixedFn2Rows) ||
+                    (currentColumns != fixedFn2Cols)) {
+
+                    // need to change layout, first retrieve h/vspacing
+
+                    let hspacing = fixedFnPanel2.hspacing;
+                    let vspacing = fixedFnPanel2.vspacing;
+
+                    fixedFnPanel2.setSize(fixedFn2Rows, fixedFn2Cols, hspacing, vspacing);
+                }
+                fixedFnPanel2.width = fixedFnPanel2.boxObject.width;
             }
         },
         

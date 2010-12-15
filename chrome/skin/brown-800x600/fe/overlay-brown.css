@@ -33,13 +33,25 @@
     padding-bottom: 2px;
 }
 
+.main-overlay .bottom-panel .function-panel {
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+}
+
 .main-overlay .bottom-panel #functionpanel {
     width: 320px;
     min-width: 320px;
     max-width: 320px;
 }
 
-.main-overlay .bottom-panel .cmd-panel {
+.main-overlay .bottom-panel .extra2-panel {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.main-overlay .bottom-panel .extra-panel {
     width: 360px;
     min-width: 360px;
     max-width: 360px;

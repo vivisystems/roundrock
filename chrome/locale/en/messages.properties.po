@@ -10,7 +10,10 @@ msgid "vivipos.fec.settings.controlpanels.system.registration.label"
 msgstr "Terminal Registration"
 
 msgid "vivipos.fec.settings.controlpanels.config.fixedfunctionpanel.label"
-msgstr "Fixed Function Key Configuration"
+msgstr "Extra Function Key Configuration (1)"
+
+msgid "vivipos.fec.settings.controlpanels.config.fixedfunctionpanel2.label"
+msgstr "Extra Function Key Configuration (2)"
 
 # ###############
 # ACL

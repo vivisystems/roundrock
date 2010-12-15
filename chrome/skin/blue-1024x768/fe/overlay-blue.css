@@ -132,6 +132,7 @@
     max-width: 567px;
     min-width: 567px;
     width: 567px;
+    padding: 2px 0px;
 }
 
 .product-panel {
@@ -144,6 +145,7 @@
 }
 
 .function-panel vivibutton {
+    border-width: 0px;
     padding: 2px;
 }
 

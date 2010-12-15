@@ -129,6 +129,7 @@
 }
 
 .function-panel {
+    margin-top: 2px;
     max-width: 445px;
     min-width: 445px;
     width: 445px;
