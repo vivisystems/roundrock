@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
-Release Note for VIVIECR ver.1.2.1.9 (English version)
-Release Date: 2010-Nov-18
+Release Note for VIVIECR ver.1.2.1.10 (English version)
+Release Date: 2010-Dec-18
 --------------------------------------------------------------------------------
 
 This is a maintenance release with enhanced functions for VIVIPOS Application (VIVIECR) 1.2.1.x series.
@@ -15,81 +15,32 @@ This release requires the following applications:
 	- VIVIPOS App Engine Release 1.2.1.5 or above
 	- VIVIPOS WebApp and WebServices Release 1.2.1.3 or above
 
-You should also install appropriate language pack (langpack-en-US_1.2.1.9.xpi) to avoid translation-related issues.
+You should also install appropriate language pack (langpack-en-US_1.2.1.10.xpi) to avoid translation-related issues.
 
 --------------------------------------------------------------------------------
 Enhanced Functions
 --------------------------------------------------------------------------------
 
-Ticket#193:
-Enhanced Logging: Sequence generation error will now be logged to vivipos.log
+Ticket#243:
+Table Booking Enhancement:  You can now browse booking entries by month, week, and date conditions.
 
-Ticket#202:
-Enhanced Layout Function: Accidental object modifications in template processing in both VFD display and printer printing will no longer affect cart session object.
+Ticket#248:
+API Ehhancement: Will send out "X-Vivipos-Machine-Id" when connecting to synchronization server for visual indication.
 
-Ticket#204:
-Enhanced Product Return Report: Summation by department now available.
-
-Ticket#209:
-Enhanced Product Return Function: When switched into product return mode, notification message will now be controlled via component's event dispatch rather than cart controller.
-
-Ticket#210:
-Enhanced PDF Generation: PDF generation will not support over 100 pages of creation through wkhtmltopdf module.
-
-Ticket#212:
-Enhanced Shopping Cart: Product's sale unit that is set to "individually" will now be displayed in the shopping art as "X".  This character can be controlled through locale translation if processed through I18n.
+Ticket#246:
+Device Enhancement: Added EPSON TM-U220 [REDON] [REDOFF] commands
 
 --------------------------------------------------------------------------------
 Bugs Fixed
 --------------------------------------------------------------------------------
 
-Ticket#187:
-Department button will no longer generate image link error when its department number is the same as a product number in the database.
+Ticket#239:
+Fixed promotion manager calculation where promotion is loss on order discount if items are reserved in promotion setting.
 
-Ticket#189:
-Fixed an error with product barcode printing's preview overlapping.
+Ticket#241:
+Set items which carry additional value in sub-items will not correctly retain the value after re-entering the shopping cart upon void sales.
 
-Ticket#190:
-In products setting page, choosing a product group then performing group linking was not linked properly - this is now fixed.
-
-Ticket#192:
-Error message #505 was used repeatedly, one is now changed to #507
-
-Ticket#194:
-Shift change report will now consider orders with destination field as both NULL or empty string '' to be the same.
-
-Ticket#196:
-Products that require condiments yet have no condiment group(s) linked will no longer crash the shopping cart.
-
-Ticket#197:
-When order content is automatically entered in the shopping cart after void sales, order destination will now carry over.
-
-Ticket#198:
-Shift marker will now synchronize to terminal ID changes to avoid sales period and shift loss during recovery.
-
-Ticket#200:
-Report by period will no longer be empty with specific time conditions.
-
-Ticket#201:
-Entering training mode after a boot up will no longer cause intermittent sales data to be recorded to training database after exiting training mode.
-
-Ticket#203:
-Fixed employee carding screen display for 1280 x 1024 mode.
-
-Ticket#207:
-Recalling a queued order will no longer leave previous order's information in the onscreen VFD
-
-Ticket#208:
-Performing a return item on an item in a set item will no longer generate color problem for the set item in the shopping cart
-
-Ticket#211:
-When the cursor is moved to a white row on the shopping cart, the cursor's color will no longer be overridden by the row color
-
-Ticket#213:
-Orders without sequence number assigned can now be recalled.
-
-Ticket#214:
-Department button will now be properly aligned in sequence according to its display order value.
+Ticket#245:
+Fixed sample templates where print routing was failing.
 
 --------------------------------------------------------------------------------
-
