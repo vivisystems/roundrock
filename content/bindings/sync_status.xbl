@@ -149,6 +149,7 @@
                         req.open('GET', url, true);
                         req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
                         req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+                        req.setRequestHeader('X-Vivipos-Machine-Id', this.syncSettings.machine_id);
                         //dump('request ' + url + '\n');
 
                         req.onreadystatechange = function (aEvt) {

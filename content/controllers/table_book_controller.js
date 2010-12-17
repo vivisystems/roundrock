@@ -175,20 +175,81 @@
         loadBookings: function(dir) {
 
             var startTime = 0, endTime = 0;
-
+            var now = Math.round((new Date()).getTime() / 1000);
+            
             if (!this._startTime || !this._endTime || dir =='today') {
-                var now = Math.round((new Date()).getTime() / 1000);
                 this._startTime = Math.round(Date.today().getTime() / 1000);
                 this._endTime = this._startTime + 86400;
             }
 
-            if (dir == 'prev') {
-                this._startTime -= 86400;
-                this._endTime -= 86400;
-            }else if (dir == 'next') {
-                this._startTime += 86400;
-                this._endTime += 86400;
-            }   
+            switch(dir) {
+                case 'today':
+                    this._startTime = Math.round(Date.today().getTime() / 1000);
+                    this._endTime = this._startTime + 86400;
+                    $('#prevdayBtn').show();
+                    $('#prevweekBtn').hide();
+                    $('#prevmonthBtn').hide();
+                    $('#nextdayBtn').show();
+                    $('#nextweekBtn').hide();
+                    $('#nextmonthBtn').hide();
+                    break;
+
+                case 'thisweek':
+                    this._startTime = Math.round(Date.today().moveToDayOfWeek(0,-1).getTime() / 1000);
+                    this._endTime = Math.round(Date.today().moveToDayOfWeek(0).getTime() / 1000) + 86400;
+                    $('#prevdayBtn').hide();
+                    $('#prevweekBtn').show();
+                    $('#prevmonthBtn').hide();
+                    $('#nextdayBtn').hide();
+                    $('#nextweekBtn').show();
+                    $('#nextmonthBtn').hide();
+                    break;
+                    
+                case 'thismonth':
+                    this._startTime = Math.round(Date.today().moveToFirstDayOfMonth().getTime() / 1000);
+                    this._endTime = Math.round(Date.today().moveToLastDayOfMonth().getTime() / 1000) + 86400;
+                    $('#prevdayBtn').hide();
+                    $('#prevweekBtn').hide();
+                    $('#prevmonthBtn').show();
+                    $('#nextdayBtn').hide();
+                    $('#nextweekBtn').hide();
+                    $('#nextmonthBtn').show();
+                    break;
+
+                case 'prev':
+                    this._startTime -= 86400;
+                    this._endTime -= 86400;
+                    break;
+
+                case 'next':
+                    this._startTime += 86400;
+                    this._endTime += 86400;
+                    break;
+
+                case 'prevweek':
+                    var tmpDate = new Date((this._startTime-86400)*1000);
+                    this._startTime = Math.round(tmpDate.moveToDayOfWeek(0,-1).getTime() / 1000);
+                    this._endTime = Math.round(tmpDate.moveToDayOfWeek(0).getTime() / 1000) + 86400;
+                    break;
+
+                case 'nextweek':
+                    var tmpDate = new Date((this._endTime+86400)*1000);
+                    this._startTime = Math.round(tmpDate.moveToDayOfWeek(0,-1).getTime() / 1000);
+                    this._endTime = Math.round(tmpDate.moveToDayOfWeek(0).getTime() / 1000) + 86400;
+                    break;
+
+                case 'prevmonth':
+                    var tmpDate = new Date((this._startTime-86400)*1000);
+                    this._startTime = Math.round(tmpDate.moveToFirstDayOfMonth().getTime() / 1000);
+                    this._endTime = Math.round(tmpDate.moveToLastDayOfMonth().getTime() / 1000) + 86400;
+                    break;
+
+                case 'nextmonth':
+                    var tmpDate = new Date((this._endTime+86400)*1000);
+                    this._startTime = Math.round(tmpDate.moveToFirstDayOfMonth().getTime() / 1000);
+                    this._endTime = Math.round(tmpDate.moveToLastDayOfMonth().getTime() / 1000) + 86400;
+                    break;
+            }
 
             startTime = this._startTime;
             endTime = this._endTime;
