@@ -47,18 +47,23 @@ run()
 {
     echo "`date +"%Y-%m-%d %H:%M:%S"` : Starting VIVIPOS FROM [run_vivipos]" >> ${DIR}/log/vivipos.log
 
-    echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" $@ >> ${DIR}/log/vivipos.log
-
     echo  "$MSG_RUN_VIVIPOS_STARTING" | \
     /usr/bin/aosd_cat -x 100 -n "Droid Serif 24" -u 800000 &
 
     # 3G modem
-    if [ -f /tmp/3g-modem.device.gnokii ]; then
-        eval `gnokii --identify 2>/dev/null | sed -e 's/ //g' -e's/:/=/g' -e 's/^/export MODEM_/g'`;
+    if [ -r /etc/modem.imei ]; then
+	MODEM_IMEI=`cat /etc/modem.imei`; export MODEM_IMEI
+        echo "`date +"%Y-%m-%d %H:%M:%S"` : MODEM detected [IMEI=$MODEM_IMEI]" >> ${DIR}/log/vivipos.log
     fi
 
     # set env of system info
-    eval `${DIR}/getSystemLicenseStub -v 2>/dev/null |awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
+    echo "`date +"%Y-%m-%d %H:%M:%S"` :   setting up license details" >> ${DIR}/log/vivipos.log
+    if [ -r /etc/vivipos.stub ]; then
+	eval `cat /etc/vivipos.stub |awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
+    fi
+
+    echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" $@ >> ${DIR}/log/vivipos.log
+
     ${DIR}/xulrunner/xulrunner ${DIR}/application.ini $@
     RETVAL=$?
 
