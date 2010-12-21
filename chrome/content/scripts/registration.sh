@@ -53,8 +53,9 @@ rm -f "$OUTPUT_FILE"
 
 # get phone number out of SIM
 GNOKII=gnokii
-PLMN=`$GNOKII --getphonebook SM 1 1 2>/dev/null | grep Number | awk '{print $2}'`
-
+if [ -r /etc/modem.plmn ]; then
+    PLMN=`cat /etc/modem.plmn`
+fi
 
 IP=
 

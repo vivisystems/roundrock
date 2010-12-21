@@ -61,8 +61,8 @@ case "$1" in
             gnokii --config ${GNOKII_CONF}.$3 --identify | grep IMEI | awk '{print $3}' > /tmp/usb_modem.$3.$$ 2>/dev/null &
             PID=$!
 
-            # wait 10 seconds
-            sleep 10
+            # wait 5 seconds
+            sleep 5
 
             # check if port is active
             if [ -s /tmp/usb_modem.$3.$$ ]; then

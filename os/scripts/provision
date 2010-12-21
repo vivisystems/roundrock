@@ -16,6 +16,7 @@ MAX_HEIGHT=24
 
 # license related variables
 LICENSE_FILE=/etc/vivipos.lic
+LICENSE_STUB_FILE=/etc/vivipos.stub
 LICENSE_SIGNER=makelic
 TOOLS_LABEL=ROUNDROCK_TOOLS
 MEDIA="/media/$TOOLS_LABEL"
@@ -56,6 +57,8 @@ MODEM_IMEI=""
 SIM_PLMN=""
 SIM_PIN=""
 PIN_FILE=/etc/modem.pin
+IMEI_FILE=/etc/modem.imei
+PLMN_FILE=/etc/modem.plmn
 WVDIAL_CONF=/etc/wvdial.conf
 DEFAULT_PIN="0000"
 
@@ -78,7 +81,10 @@ determine_window_size() {
 
 provision_failed() {
     [ -f "${LICENSE_FILE}".$$ ] && rm -f "${LICENSE_FILE}".$$
+    [ -f "${LICENSE_STUB_FILE}".$$ ] && rm -f "${LICENSE_STUB_FILE}".$$
     [ -f "${PIN_FILE}".$$ ] && rm -f "${PIN_FILE}".$$
+    [ -f "${IMEI_FILE}".$$ ] && rm -f "${IMEI_FILE}".$$
+    [ -f "${PLMN_FILE}".$$ ] && rm -f "${PLMN_FILE}".$$
     [ -f "$SUPPORT_FQDN_FILE".$$ ] && rm -f "$SUPPORT_FQDN_FILE".$$
     [ -f /tmp/initrd.$$ ] && rm -f /tmp/initrd.$$
 
@@ -193,7 +199,8 @@ get_serial_number() {
 
     while [ $SUCCESS -ne 0 ]; do
 
-        { $SERIAL_NUMBER_READER | grep license_stub | awk -F"=" '{print $2}' > /tmp/sn.$$ ; } 2>&1 \
+	$SERIAL_NUMBER_READER 2>/dev/null > "${LICENSE_STUB_FILE}".$$
+        { cat "${LICENSE_STUB_FILE}".$$ | grep license_stub | awk -F"=" '{print $2}' > /tmp/sn.$$ ; } 2>&1 \
 	| $DIALOG $DIALOG_OPTS --progressbox "Retrieving system serial number..." 8 $MAX_WIDTH
 
 	SERIAL_NUMBER=`cat /tmp/sn.$$`
@@ -364,15 +371,18 @@ verify_plmn() {
 	done
     done
 
+    # store PLMN on terminal
+    echo -n "$SIM_PLMN" > "$PLMN_FILE.$$"
+
     # write PLMN into SM phonebook at location 1
-    echo "MYPHONE;$SIM_PLMN;SM;1;0;0;0;0;MYPHONE" | $GNOKII --writephonebook -o 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Storing [$SIM_PLMN] into SIM (SM) phonebook..." 12 $MAX_WIDTH
-    sleep 2
+    #echo "MYPHONE;$SIM_PLMN;SM;1;0;0;0;0;MYPHONE" | $GNOKII --writephonebook -o 2>&1 | $DIALOG $DIALOG_OPTS --progressbox "Storing [$SIM_PLMN] into SIM (SM) phonebook..." 12 $MAX_WIDTH
+    #sleep 2
 
     # read PLMN back
-    SIM_PLMN_VERIFY=`$GNOKII --getphonebook SM 1 1 2>/dev/null | grep Number | awk '{print $2}'`
-    if [ "$SIM_PLMN" != "$SIM_PLMN_VERIFY" ]; then
-	provision_failed 9 "Unable to write phone number [$SIM_PLMN] into SM phonebook"
-    fi
+    #SIM_PLMN_VERIFY=`$GNOKII --getphonebook SM 1 1 2>/dev/null | grep Number | awk '{print $2}'`
+    #if [ "$SIM_PLMN" != "$SIM_PLMN_VERIFY" ]; then
+    #	provision_failed 9 "Unable to write phone number [$SIM_PLMN] into SM phonebook"
+    #fi
 }
 
 ################################################################################################################
@@ -456,6 +466,9 @@ Revision     = [$MODEM_Revision]" 10 $MAX_WIDTH
 
     # store PIN code on terminal
     echo -n "$SIM_PIN" > "$PIN_FILE.$$"
+
+    # store IMEI on terminal
+    echo -n "$MODEM_IMEI" > "$IMEI_FILE.$$"
 
     $DIALOG $DIALOG_OPTS --title "WIRELESS MODEM" --msgbox "Modem successfully provisioned" 4 $MAX_WIDTH
 
@@ -609,7 +622,10 @@ if [ $? -ne 0 ]; then
 else
 
     [ -f "${LICENSE_FILE}".$$ ] && mv -f "${LICENSE_FILE}".$$ "${LICENSE_FILE}"
+    [ -f "${LICENSE_STUB_FILE}".$$ ] && mv -f "${LICENSE_STUB_FILE}".$$ "${LICENSE_STUB_FILE}"
     [ -f "${PIN_FILE}".$$ ] && mv -f "${PIN_FILE}".$$ "${PIN_FILE}"
+    [ -f "${IMEI_FILE}".$$ ] && mv -f "${IMEI_FILE}".$$ "${IMEI_FILE}"
+    [ -f "${PLMN_FILE}".$$ ] && mv -f "${PLMN_FILE}".$$ "${PLMN_FILE}"
     [ -f "$SUPPORT_FQDN_FILE".$$ ] && mv -f "$SUPPORT_FQDN_FILE".$$ "$SUPPORT_FQDN_FILE"
     [ -f /tmp/initrd.$$ ] && mv -f /tmp/initrd.$$ "${INITRAMFS}"
 
