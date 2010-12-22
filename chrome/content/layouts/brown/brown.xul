@@ -105,9 +105,7 @@
                                  inputController=""/>
 
                     <box id="functionPanelContainer" flex="1" panel="&layout.panel.function;" class="function-panel"/>
-                                 <!--
                     <vbox id="fixedFunctionPanelContainer" class="cmd-panel"/>
-                    -->
                 </box>
             </hbox>
 
