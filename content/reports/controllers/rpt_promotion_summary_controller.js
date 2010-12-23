@@ -87,11 +87,8 @@
             orderModel.useDbConfig = useDbConfig; // udpate dbconfig
 
             var records = orderModel.getDataSource().fetchAll( sql );
-            
-  			
+            			
             var promotionModel = new PromotionModel();
-
-            promotionModel.useDbConfig = useDbConfig; // udpate dbconfig
 
             //sql = 'select id, name, code from promotions group by id order by name limit -1;';
             var promotionIds = promotionModel.find('all', {
