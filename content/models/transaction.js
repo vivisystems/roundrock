@@ -3749,6 +3749,11 @@
 
                             newParentItem.current_subtotal += newItem.current_subtotal;
 
+                            // update parent display sequences
+                            var newParentDispIdx = this.getDisplayIndexByIndex(newParentIndex);
+                            if (newParentDispIdx != -1) {
+                                this.data.display_sequences[newParentDispIdx] = this.createDisplaySeq(newParentIndex, newParentItem, newParentItem.type);
+                            }
                             
                         }else {
                             // item
