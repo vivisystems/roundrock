@@ -11,14 +11,14 @@
 }
 
 #signinpanel  {
-    background: #f8f4eb url(../images/Signin.jpg) top left no-repeat;
+    background: #f8f4eb url(../images/Signin.jpg) 0px 0px no-repeat;
     border: 0px solid red;
-    height: 768px;
-    width: 1024px;
+    height: 1024px;
+    width: 1280px;
 }
 
 .userscrollablepanel {
-    margin-left: 105px;
+    margin-left: 125px;
     margin-top: 25px;
     max-height: 465px;
     min-height: 465px;
@@ -49,7 +49,7 @@
 	background: white url(../images/numpadbg.gif) no-repeat top center;
 	border: solid 1px #5c5751;
 	height: 330px;
-	margin: 103px 0 0 70px;
+	margin: 103px 0 0 250px;
 	max-height: 330px;
 	max-width: 373px;
 	padding: 27px 10px 10px 5px;
@@ -324,7 +324,7 @@
 	height: 40px;
 	margin-right: 12px;
 	margin-top: 5px;
-    padding: 2px;
+        padding: 2px;
 	width: 270px;
 	-moz-appearance: none;
 	-moz-border-radius: 4px;
@@ -333,7 +333,7 @@
 .PageTitle {
 	color: black;
 	font-size: 20pt;
-	margin: 15px 0 0 390px;
+	margin: 15px 100px 0 0px;
 }
 
 .QuickLogin {
@@ -350,7 +350,7 @@
 }
 
 .clockinout {
-    background: transparent url(../images/clock.png) center center no-repeat;
+    background: transparent url(../icons/icon_clock.png) center center no-repeat;
     border-width: 0px;
     height: 80px;
     width: 80px;
@@ -358,7 +358,15 @@
 }
 
 .vkb {
-    background: transparent url(../images/keyboard.png) center center no-repeat;
+    background: transparent url(../icons/icon_keyboard.png) center center no-repeat;
+    border-width: 0px;
+    height: 80px;
+    width: 80px;
+    -moz-appearance: none;
+}
+
+.poweroff {
+    background: transparent url(../icons/icon_poweroff.png) center center no-repeat;
     border-width: 0px;
     height: 80px;
     width: 80px;

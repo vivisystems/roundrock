@@ -13,14 +13,14 @@
 .clockinPanel {
     background: #f8f4eb url(../images/ClockInOut.jpg) top left no-repeat;
 	border: none;
-    height: 1024px;
-    width: 1280px;
+    height: 768px;
+    width: 1024px;
 }
 
 .PageTitle {
 	color: black;
 	font-size: 20pt;
-	margin: 15px 0 0 430px;
+	margin: 15px 100px 0 0px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -28,12 +28,17 @@
  *-----------------------------------------------------------------------------
  */
 
+ .userpanel_vbox {
+    max-width: 365px;
+    min-width: 365px;
+    width: 365px;
+}
 .clockuserscrollablepanel {
-    margin: 117px 0 0 140px;
-    max-height: 570px;
-    max-width: 223px;
-    min-height: 570px;
-    min-width: 223px;
+    margin: 67px 0 0 102px;
+    max-height: 428px;
+    max-width: 265px;
+    min-height: 428px;
+    min-width: 265px;
 }
 
 /* user buttons */
@@ -44,16 +49,16 @@
     color: #3a382f;
     font-size: 15px;
     font-weight: bold !important;
-    height: 65px;
+    height: 69px;
     list-style-type: none;
-    margin: 0px 0px 2px 14px;
-    max-height:65px;
-    max-width:208px;
-    min-height:65px;
-    min-width:208px;
+    margin: 0px 0px 3px 25px;
+    max-height:69px;
+    max-width:210px;
+    min-height:69px;
+    min-width:210px;
     overflow: hidden;
     padding: 30px 0 0 0px;
-    width: 208px;
+    width: 210px;
     -moz-appearance: none;
     -moz-background-clip: border;
     -moz-box-orient: vertical;
@@ -89,9 +94,8 @@
  */
 
 .clockuserscrollablepanel .scrollablepanel-scrollbar{
-	max-width: 56px;
-	min-width: 56px;
-        
+	max-width: 50px;
+	min-width: 50px;
 }
 
 /* scroll bar buttons */
@@ -107,7 +111,6 @@
     -moz-appearance: none;
     -moz-background-clip: border;
     -moz-user-focus: ignore;
-    
 }
 
 .rightprevbtn[disabled=false]:active {
@@ -128,7 +131,6 @@
     -moz-appearance: none;
     -moz-background-clip: border;
     -moz-user-focus: ignore;
-    margin: 0px 0px 0px 0px;
 }
 
 .rightnextbtn[disabled=false]:active {
@@ -276,7 +278,7 @@
     background: url(../images/exit_1.png) 95% top no-repeat;
     border: none;
     height: 80px;
-    margin: 24px 1px 20px 20px;
+    margin: 115px 1px 20px 20px;
     padding: 0px;
     overflow: hidden;
     -moz-appearance: none;
@@ -338,7 +340,7 @@
 
 .numjobpad {
 	background: transparent url(../images/numjob.png) left 3px no-repeat;
-	margin: 85px 0 0 19px;
+	margin: 85px 0 0 107px;
 
 }
 
@@ -524,9 +526,9 @@ listbox {
 }
 
 .clockin_spacer{
-    width: 350px;
+    width: 250px;
 }
 
 .clockin_spacer{
-    width: 150px;
+    width: 10px;
 }

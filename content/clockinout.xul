@@ -38,8 +38,10 @@
                     </viviscrollablebuttonpanel>
                 </vbox>
                 <spacer  class="clockin_spacer"/>
-                <vbox>
-                    <label value="&clockin.title;" class="PageTitle" />
+                <vbox flex="1">
+                    <hbox pack="end">
+                        <label value="&clockin.title;" class="PageTitle" />
+                    </hbox>
                     <hbox class="numjobpad">
 	                    <hbox class="numpad" >
 	                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
@@ -69,7 +71,6 @@
                     	</vbox>
                     </hbox>
                 </vbox>
-                <spacer flex="1" />
 
             </hbox>
             <hbox pack="center" class="PwPad">

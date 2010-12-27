@@ -20,7 +20,7 @@
 .PageTitle {
 	color: black;
 	font-size: 20pt;
-	margin: 15px 0 0 430px;
+	margin: 15px 50px 0 0px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -518,4 +518,12 @@ listbox {
 
 .jobsummaryDownbtn:active {
 	background: transparent url(../images/jobdownbtn_a.png) center center no-repeat;
+}
+
+.clockin_spacer{
+    width: 250px;
+}
+
+.clockin_spacer{
+    width: 10px;
 }
