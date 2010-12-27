@@ -50,7 +50,7 @@
                             
             var userName = document.getElementById( 'user' ) .value;
             if ( userName != 'all' )
-            	conditions += " AND clock_stamps.username = '" + this._queryStringPreprocessor( userName ) + "'";
+            	conditions += " AND clock_stamps.displayname = '" + this._queryStringPreprocessor( userName ) + "'";
             	
            	var jobTitle = document.getElementById( 'job' ).value;
            	if ( jobTitle != 'all' )

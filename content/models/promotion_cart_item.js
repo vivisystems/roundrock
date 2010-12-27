@@ -66,11 +66,11 @@
                     datasource.connect();
                     if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
 
-                    var sql2 = "UPDATE promotion_cart_items SET current_qty=org_qty, current_subtotal=org_subtotal;";
-                    if(sql2 && datasource.conn) datasource.conn.executeSimpleSQL(sql2);
+//                    var sql2 = "UPDATE promotion_cart_items SET current_qty=org_qty, current_subtotal=org_subtotal;";
+//                    if(sql2 && datasource.conn) datasource.conn.executeSimpleSQL(sql2);
 
                 }catch(e) {
-                    this.log('ERROR', 'appendItem: promotion_cart_items error. SQL:' + sql2, e);
+                    this.log('ERROR', 'appendItem: promotion_cart_items error. SQL:' + sql, e);
                 }
 
         },
@@ -86,11 +86,11 @@
                 datasource.connect();
                 if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
 
-                var sql2 = "UPDATE promotion_cart_items SET current_qty=org_qty, current_subtotal=org_subtotal;";
-                if(sql2 && datasource.conn) datasource.conn.executeSimpleSQL(sql2);
+                // reset all items 's qty and subtotal
+//                this.resetItems();
 
             }catch(e) {
-                this.log('ERROR', 'removeItem: promotion_cart_items error. SQL:' + sql2, e);
+                this.log('ERROR', 'removeItem: promotion_cart_items error. SQL:' + sql, e);
             }
 
         },
@@ -110,6 +110,20 @@
 
         },
 
+        resetItems: function() {
+
+            var datasource = this.getDataSource();
+
+            try {
+
+                var sql2 = "UPDATE promotion_cart_items SET current_qty=org_qty, current_subtotal=org_subtotal;";
+                if(sql2 && datasource.conn) datasource.conn.executeSimpleSQL(sql2);
+
+            }catch(e) {
+                this.log('ERROR', 'resetItems: promotion_cart_items error. SQL:' + sql2, e);
+            }
+
+        },
 
         reserveItems: function(items) {
 

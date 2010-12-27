@@ -3679,6 +3679,7 @@
             var displaySeqCount = source.getDisplaySeqCount();
 
             var removeIndexes = {};
+            var items_count = 0;
 
             // move items by for-loop display_sequences
             for (let i=index; i<displaySeqCount;i++) {
@@ -3745,6 +3746,14 @@
                             newItem.current_subtotal = this.getRoundedPrice(newItem.current_qty*item.current_price*priceModifier) || 0;
 
                             newItem.parent_index = newParentIndex;
+
+                            newParentItem.current_subtotal += newItem.current_subtotal;
+
+                            // update parent display sequences
+                            var newParentDispIdx = this.getDisplayIndexByIndex(newParentIndex);
+                            if (newParentDispIdx != -1) {
+                                this.data.display_sequences[newParentDispIdx] = this.createDisplaySeq(newParentIndex, newParentItem, newParentItem.type);
+                            }
                             
                         }else {
                             // item
@@ -3767,6 +3776,8 @@
                                 orgItem.current_surcharge = this.getRoundedPrice( orgItem.current_surcharge * ( orgItem.current_qty / orgItem.org_qty));
                                 newItem.current_surcharge = orgSurcharge - orgItem.current_surcharge;
                             }
+                            items_count++;
+
                         }
 
                         newItem.index = newItemIndex;
@@ -3803,7 +3814,7 @@
                     break;
                 }
             }
-            this.data.items_count += GeckoJS.BaseObject.getKeys(removeIndexes).length;
+            this.data.items_count += items_count; // GeckoJS.BaseObject.getKeys(removeIndexes).length;
 
      
         },

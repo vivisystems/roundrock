@@ -117,7 +117,7 @@
                 // on Transaction calcPromtions
                 Transaction.events.addListener('onCalcPromotions', function(evt) {
                     if (!evt || !evt.data) return;
-                    
+
                     self.process();
                 });
 
@@ -351,7 +351,9 @@
 
             // truncate apply rules
             var applyModel = this.getApplyModel();
+            var cartItemModel = this.getCartItemModel();
             applyModel.truncate();
+            cartItemModel.resetItems();
             
             currentPromotions.forEach(function(promotion){
                 
