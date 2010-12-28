@@ -66,7 +66,7 @@
                 <vivibutton id="poweroffBtn" label="" class="poweroff" oncommand="mainWindow.$do('shutdown', null, 'Main');" />
             </isoptionenabled>
             <spacer flex="1"/>
-            <label value="Copyright@2008-2011 VIVIPOS CO., LTD. All Rights Reserved" class="copyrightlabel" />
+            <label value="Copyright © 2008-2011 VIVIPOS CO., LTD. All Rights Reserved" class="copyrightlabel" />
             <spacer flex="1"/>
             <isoptionenabled option="vivipos.fec.settings.ShowVKIcon" action="display">
                 <vivibutton id="vkbBtn" label="" class="vkb" oncommand="VirtualKeyboard.toggle();" />
