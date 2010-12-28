@@ -4844,6 +4844,11 @@
 
              curTransaction.cloneAllItems(transaction);
 
+             /* initial stock maintain flag */
+             for(var item in curTransaction.data.items){
+                 curTransaction.data.items[item].stock_maintained = false;
+             }
+
              curTransaction = this.checkof_transStock(curTransaction);
 
              this.dispatchEvent('onGetSubtotal', curTransaction);
