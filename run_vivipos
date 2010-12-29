@@ -59,7 +59,7 @@ run()
     # set env of system info
     echo "`date +"%Y-%m-%d %H:%M:%S"` :   setting up license details" >> ${DIR}/log/vivipos.log
     if [ -r /etc/vivipos.stub ]; then
-	eval `cat /etc/vivipos.stub |awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
+	eval `cat /etc/vivipos.stub |awk -F"=" '$1 ~ /^[A-Za-z0-9_]+$/ { print "export " $1 "=\"" $2 "\"";  }'`
     fi
 
     echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" $@ >> ${DIR}/log/vivipos.log
