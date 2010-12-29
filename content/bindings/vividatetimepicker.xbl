@@ -1323,6 +1323,7 @@
 
             var monthLabel = this.monthField.firstChild;
             var tempDate = new Date();
+            tempDate.setDate(1);
             for (var month = 0; month < 12; month++) {
               tempDate.setMonth(month);
               monthLabel.setAttribute("value", tempDate.toLocaleFormat("%B"));
