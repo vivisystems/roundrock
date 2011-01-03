@@ -2129,7 +2129,7 @@
                 {
                     name: _('ACL Permissions'),
                     type: 'data',
-                    database: "/data/databases/vivipos_acl.sqlite",
+                    database: "/data/databases/vivipos.sqlite",
                     filename: '',
                     table: ["acl_group_roles", "acl_groups", "acl_roles"],
                     imported: '',
@@ -2138,7 +2138,7 @@
                 {
                     name: _('Tables'),
                     type: 'data',
-                    database: "/data/databases/vivipos_table.sqlite",
+                    database: "/data/databases/vivipos.sqlite",
                     filename: '',
                     table: ["tables", "table_statuses", "table_regions", "table_orders", "table_bookings", "table_marks", "table_order_locks", "table_settings", "table_wait_lists"],
                     imported: '',
