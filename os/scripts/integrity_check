@@ -45,7 +45,7 @@ for i in "${DB_DIR}"/*.sqlite; do
 
     result=`${SQLITE3} $i "PRAGMA quick_check"`
 
-    if [ "$?" = "0" ] && [ ! -z "$result" ] && [ "$result" != "ok" ]; then
+    if [ "$?" != "0" ] || [ -z "$result" ] || [ "$result" != "ok" ]; then
         log_warning_msg "... database [${dbname}] not ok: ${result}"
 
         log_warning_msg "... attempting recovery of database [${dbname}]"
