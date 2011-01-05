@@ -83,11 +83,14 @@
                             break;
 
                         case 'issue':
-                            var issueFile = new GeckoJS.File('/etc/issue.net');
-                            if(issueFile.exists()) {
-                                issueFile.open("r");
-                                value = issueFile.read();
-                                issueFile.close();
+                            var issueFile = '/etc/issue.net';
+                            if(GREUtils.File.exists(issueFile)) {
+                                var lines = GREUtils.File.readAllLine(issueFile) || [];
+				if (lines.length > 0) {
+				    value = lines[0];
+				} else {
+				    values = "";
+				}
                             }
                             break;
 
