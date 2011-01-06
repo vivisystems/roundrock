@@ -24,3 +24,7 @@
 
 <!ENTITY lic_help.ext_export.button   "Export License File (vivipos.lic)">
 <!ENTITY lic_help.ext_import.button   "Import Signed License (signed.lic)">
+<!ENTITY lic_help.request.name  "Name">
+<!ENTITY lic_help.request.email  "Email">
+<!ENTITY lic_help.request.confirm  "Confirm Email">
+<!ENTITY lic_help.request.comment  "Comment">
