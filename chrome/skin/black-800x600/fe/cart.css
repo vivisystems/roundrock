@@ -210,6 +210,7 @@
 }
 
 .main-overlay .cart-list tree #name {
+    padding-left: 15px;
 /*
     max-width: 140px;
     min-width: 140px;
