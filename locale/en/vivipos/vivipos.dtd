@@ -27,4 +27,6 @@
 <!ENTITY lic_help.request.name  "Name">
 <!ENTITY lic_help.request.email  "Email">
 <!ENTITY lic_help.request.confirm  "Confirm Email">
+<!ENTITY lic_help.request.hwsn  "HW Serial Number">
+<!ENTITY lic_help.request.swsn  "SW Serial Number">
 <!ENTITY lic_help.request.comment  "Comment">
