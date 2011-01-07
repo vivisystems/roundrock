@@ -3623,6 +3623,7 @@
 
             var removeIndexes = {};
             var removeCount = 0;
+            var removeItemCount = 0;
 
             // move items by for-loop display_sequences
             for (let i=index; i<displaySeqCount;i++) {
@@ -3643,6 +3644,9 @@
                     if (itemIndex && !removeIndexes[itemIndex]) {
                         removeIndexes[itemIndex] = itemIndex;
                         this.data.items[itemIndex] = item;
+                        if (!itemParentIndex) {
+                            removeItemCount++;
+                        }
                     }
 
                     this.data.display_sequences.push(itemDisplay);
@@ -3652,8 +3656,8 @@
                 }
             }
 
-            this.data.items_count += GeckoJS.BaseObject.getKeys(removeIndexes).length;
-            source.data.items_count -= GeckoJS.BaseObject.getKeys(removeIndexes).length;
+            this.data.items_count += removeItemCount; // GeckoJS.BaseObject.getKeys(removeIndexes).length;
+            source.data.items_count -= removeItemCount; //GeckoJS.BaseObject.getKeys(removeIndexes).length;
 
             for(let j in removeIndexes) {
                 let idx = removeIndexes[j];
