@@ -197,7 +197,7 @@ function install(el, opts) {
     // show the message
     //lyr3.append(msg);//.show();
     //alert(lyr3[0] +',,,' + msg);
-    lyr3[0].appendChild(msg[0]);
+    lyr3[0].appendChild(msg[0] || msg);
     if (msg && (msg.jquery || msg.nodeType))
         $(msg).show();
 
