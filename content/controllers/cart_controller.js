@@ -4919,7 +4919,7 @@
 
                  var stock = stockrecord.getStockById(iteminfo.no);
 
-                 if(qty_subtotal > stock);
+                 if(qty_subtotal > stock)
                      return true;
              }
              return false;
