@@ -11,7 +11,7 @@ var creditcardRemark_options = null;
 
         var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
         var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
-
+        
         $.installPanel($panel[0], {
 
             css: {
@@ -24,6 +24,15 @@ var creditcardRemark_options = null;
 
             init: function(evt) {
 
+                var appletFrame = document.getElementById('javaAppletFrame');
+                if (appletFrame) {
+                    var htmlFilePath = GREUtils.File.chromeToPath("chrome://viviecr/content/dialogs/osd_panel.html");
+                    if (htmlFilePath.length > 0) {
+                        htmlFilePath = 'file://' + htmlFilePath;
+
+                        appletFrame.src = htmlFilePath;
+                    }
+                }
                 document.getElementById('creditcardRemark-clearBtn').addEventListener('command', clearTextBox, false);
 
                 /*

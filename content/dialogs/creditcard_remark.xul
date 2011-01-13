@@ -59,6 +59,9 @@
                     </hbox>
 
                     <spacer flex="1"/>
+                    <html:iframe id="javaAppletFrame" type="chrome"
+                            style="border: red 2px solid; height: 50px;"
+                            />
 
                     <hbox>
                         <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
