@@ -590,3 +590,57 @@ ol {
     -moz-border-right-colors:  #b7b7b2;
 }
 
+#prevdayBtn, #todayBtn, #nextdayBtn,
+#prevweekBtn, #weekBtn, #nextweekBtn,
+#prevmonthBtn, #monthBtn, #nextmonthBtn
+{
+    background-color: white ;
+    background-image: none;
+    border: 2px solid;
+    color: #4d4234;
+    font-size: 12pt;
+    margin: 5px;
+    min-height: 40px;
+    min-width: 75px;
+    padding: 8px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #918570 white;
+    -moz-border-left-colors: #918570 white;
+    -moz-border-right-colors: #918570 white;
+    -moz-border-bottom-colors: #918570 white;
+    -moz-border-radius: 6px;
+}
+
+#prevdayBtn[disabled=true], #todayBtn[disabled=true], #nextdayBtn[disabled=true],
+#prevweekBtn[disabled=true], #weekBtn[disabled=true], #nextweekBtn[disabled=true],
+#prevmonthBtn[disabled=true], #monthBtn[disabled=true], #nextmonthBtn[disabled=true]
+{
+    background-color: #fff6e8 ;
+    border-width: 0px !important
+}
+
+#order_display_div {
+    width: 754px;
+    max-width: 754px;
+}
+.autorepeatbutton-up, .autorepeatbutton-down {
+    min-width: 36px;
+}
+
+#todayBtn[checked], #weekBtn[checked], #monthBtn[checked] {
+    background-color: yellow;
+    background-image: none;
+    border: 2px solid;
+    color: #4d4234;
+    font-size: 12pt;
+    margin: 5px;
+    min-height: 40px;
+    min-width: 75px;
+    padding: 8px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #918570 red;
+    -moz-border-left-colors: #918570 red;
+    -moz-border-right-colors: #918570 red;
+    -moz-border-bottom-colors: #918570 red;
+    -moz-border-radius: 6px;
+}

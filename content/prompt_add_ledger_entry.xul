@@ -20,6 +20,7 @@
 
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
   <script type="application/x-javascript" src="chrome://viviecr/content/prompt_add_ledger_entry.js"/>
+  <script type="application/x-javascript" src="chrome://viviecr/content/controllers/ledger_controller.js"/>
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>

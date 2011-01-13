@@ -48,10 +48,16 @@
                             </hbox>
                             <hbox>
                                 <button id="prevdayBtn" label="&tableman.button.prevday;" oncommand="$do('loadBookings', 'prev', 'TableBook');" />
+                                <button id="prevweekBtn" label="&tableman.button.prevweek;" style="display: none;" oncommand="$do('loadBookings', 'prevweek', 'TableBook');" />
+                                <button id="prevmonthBtn" label="&tableman.button.prevmonth;" style="display: none;" oncommand="$do('loadBookings', 'prevmonth', 'TableBook');" />
                                 <spacer flex="1" />
-                                <button id="todayBtn" label="&tableman.button.today;" oncommand="$do('loadBookings', 'today', 'TableBook');" />
+                                <button id="todayBtn" type="radio" group="listType" checked="true" label="&tableman.button.today;" oncommand="$do('loadBookings', 'today', 'TableBook');" />
+                                <button id="weekBtn" type="radio" group="listType" label="&tableman.button.week;" oncommand="$do('loadBookings', 'thisweek', 'TableBook');" />
+                                <button id="monthBtn" type="radio" group="listType" label="&tableman.button.month;" oncommand="$do('loadBookings', 'thismonth', 'TableBook');" />
                                 <spacer flex="1" />
                                 <button id="nextdayBtn" label="&tableman.button.nextday;" oncommand="$do('loadBookings', 'next', 'TableBook');" />
+                                <button id="nextweekBtn" label="&tableman.button.nextweek;" style="display: none;" oncommand="$do('loadBookings', 'nextweek', 'TableBook');" />
+                                <button id="nextmonthBtn" label="&tableman.button.nextmonth;" style="display: none;" oncommand="$do('loadBookings', 'nextmonth', 'TableBook');" />
                             </hbox>
                         </vbox>
                     </vbox>

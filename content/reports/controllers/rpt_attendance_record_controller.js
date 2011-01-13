@@ -50,7 +50,7 @@
                             
             var userName = document.getElementById( 'user' ) .value;
             if ( userName != 'all' )
-            	conditions += " AND clock_stamps.username = '" + this._queryStringPreprocessor( userName ) + "'";
+            	conditions += " AND clock_stamps.displayname = '" + this._queryStringPreprocessor( userName ) + "'";
             	
            	var jobTitle = document.getElementById( 'job' ).value;
            	if ( jobTitle != 'all' )
@@ -69,9 +69,10 @@
             // prepare report datas here so that all clock stamps are ordered by username first
             var clockStamps = {};
             datas.forEach(function(o){
+                o.username = o.username + ' : ' + o.displayname;
                 if (!clockStamps[o.username]) {
                     clockStamps[o.username] = {};
-                    clockStamps[o.username].username = o.username +' : '+ o.displayname;
+                    clockStamps[o.username].username = o.username;
                     clockStamps[o.username].total_spans = 0;
                     clockStamps[o.username].clockStamps = [];
                 }

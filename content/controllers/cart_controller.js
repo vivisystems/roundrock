@@ -914,6 +914,10 @@
                     var newqty = 0 - (qty || 1);
                     GeckoJS.Session.set('cart_set_qty_value', newqty);
                 }
+                /* if this behavior is Sale Department then assign category number to product number*/
+                if(item.no == '')
+                    item.no = item.cate_no;
+
                 var addedItem = curTransaction.appendItem(item);
                 var doSIS = plu.single && curTransaction.data.items_count == 1 && !this._returnMode;
 
@@ -4844,6 +4848,11 @@
 
              curTransaction.cloneAllItems(transaction);
 
+             /* initial stock maintain flag */
+             for(var item in curTransaction.data.items){
+                 curTransaction.data.items[item].stock_maintained = false;
+             }
+
              curTransaction = this.checkof_transStock(curTransaction);
 
              this.dispatchEvent('onGetSubtotal', curTransaction);
@@ -4910,7 +4919,7 @@
 
                  var stock = stockrecord.getStockById(iteminfo.no);
 
-                 if(qty_subtotal > stock);
+                 if(qty_subtotal > stock)
                      return true;
              }
              return false;

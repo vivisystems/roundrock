@@ -34,8 +34,10 @@
                 </viviscrollablebuttonpanel>
                 <textbox id="username" value="" class="nameBox pwBox" onfocus="this.select()" oninput="$do('validateForm', null, 'ChangeUser')"/>
             </vbox>
-            <vbox>
-                <label value="&changeuser.title;" class="PageTitle" />
+            <vbox flex="1">
+                <hbox pack="end">
+                    <label value="&changeuser.title;" class="PageTitle" />
+                </hbox>
                 <hbox>
                     <hbox class="numpad">
                             <numberpad id="multinumberpad" class="numberpad"/>
@@ -58,11 +60,13 @@
                 <button id="signinBtn" label="&changeuser.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
         </hbox>
         <spacer flex="1"/>
-        <hbox>
+        <hbox pack="end" align="center">
             <isoptionenabled option="vivipos.fec.settings.ShowPoweroffIcon" action="display">
                 <spacer width="10px;"/>
                 <vivibutton id="poweroffBtn" label="" class="poweroff" oncommand="mainWindow.$do('shutdown', null, 'Main');" />
             </isoptionenabled>
+            <spacer flex="1"/>
+            <label value="Copyright © 2008-2011 VIVIPOS CO., LTD. All Rights Reserved" class="copyrightlabel" />
             <spacer flex="1"/>
             <isoptionenabled option="vivipos.fec.settings.ShowVKIcon" action="display">
                 <vivibutton id="vkbBtn" label="" class="vkb" oncommand="VirtualKeyboard.toggle();" />

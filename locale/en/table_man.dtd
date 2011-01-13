@@ -60,6 +60,14 @@
 <!ENTITY tableman.button.nextday "Next Day">
 <!ENTITY tableman.button.rebuild_status "Rebuild Status">
 
+<!ENTITY tableman.button.prevweek "Previous Week">
+<!ENTITY tableman.button.week "This Week">
+<!ENTITY tableman.button.nextweek "Next Week">
+
+<!ENTITY tableman.button.prevmonth "Previous Month">
+<!ENTITY tableman.button.month "This Month">
+<!ENTITY tableman.button.nextmonth "Next Month">
+
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">
 <!ENTITY tableman.name "Name:">

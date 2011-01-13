@@ -20,7 +20,7 @@
 .PageTitle {
 	color: black;
 	font-size: 15pt;
-	margin: 10px 0 0 330px;
+	margin: 10px 40px 0 0px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -328,7 +328,7 @@
 
 .numjobpad {
 	background: transparent url(../images/numjob.png) left 3px no-repeat;
-	margin: 65px 0 0 12px;
+	margin: 65px 0 0 22px;
 	
 }
 
