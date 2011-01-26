@@ -14,6 +14,7 @@
         _viewObj: null,
         _typeObj: null,
         _codeDatas: [],
+        _codeView: null,
         _selectedCodeIndex: -1,
         _typeDatas: [],
         _annotationDatas: [],
@@ -41,6 +42,54 @@
             return this._codeObj;
         },
 
+        getCodeListView: function() {
+            if(this._codeView == null) {
+                var codeObj = this.getCodeListObj();
+                if (codeObj) {
+                    this._codeView = new GeckoJS.NSITreeViewArray();
+                    this._codeView.getCellText = function(row, col) {
+                        var sResult = "";
+                        var record;
+                        var key;
+                        try {
+                            key = col.id;
+                            if (key != 'image') {
+                                record = this.data[row];
+                                sResult = record[key];
+                            }
+                        }
+                        catch (e) {
+                            return "";
+                        }
+                        return sResult;
+                    };
+                    this._codeView.getImageSrc = function(row, col) {
+                        var sResult = "";
+                        var record;
+                        var key;
+                        try {
+                            key = col.id;
+                            if (key == 'image') {
+                                record = this.data[row];
+                                sResult = record[key];
+                                if (sResult) {
+                                    if (!GREUtils.File.exists(sResult)) {
+                                        return "";
+                                    }
+                                    sResult = 'file://' + sResult;
+                                }
+                            }
+                        }
+                        catch (e) {
+                            return "";
+                        }
+                        return sResult;
+                    }
+                }
+            }
+            return this._codeView;
+        },
+
         loadCodes: function () {
 
             if (this._codeDatas.length <= 0) {
@@ -49,8 +98,39 @@
                 if (this._codeDatas.length <= 0) this._codeDatas = [];
             }
 
-            this.getCodeListObj().datasource = this._codeDatas;
+            this.getCodeListView().data = this._codeDatas;
+            this._codeObj.datasource = this._codeView;
+            this._codeObj.refresh();
+            //this.getCodeListObj().datasource = this._codeDatas;
             this.validateCodeForm();
+        },
+
+        selectCodeImage: function() {
+
+            var sOrigDir = GeckoJS.Session.get('original_directory');
+
+            var aURL = 'chrome://viviecr/content/imageManager.xul';
+            var aName = 'imagePicker';
+
+            var args = {
+                pickerMode: true,
+                directory: sOrigDir + '',
+                result: false,
+                file: ''
+            };
+
+            var width = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            var height = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
+            args.wrappedJSObject = args;
+            GREUtils.Dialog.openWindow(window, aURL, aName, 'chrome,dialog,modal,dependent=yes,resize=no,width=' + width + ',height=' + height, args);
+
+            if (args.result) {
+                if (GREUtils.File.exists(args.file)) {
+                    document.getElementById('codeimage').setAttribute('src', 'file://' + args.file);
+                    document.getElementById('annotation_image').value = args.file;
+                }
+            }
         },
 
         addAnnotationCode: function(){
@@ -95,7 +175,8 @@
                 if (inputObj.code != null && inputObj.code.length > 0) {
                     this._codeDatas[index].type = GeckoJS.String.trim(inputObj.type);
                     this._codeDatas[index].text = GeckoJS.String.trim(inputObj.text);
-
+                    this._codeDatas[index].image = inputObj.image;
+alert('annotation image [' + inputObj.image + ']');
                     this.saveAnnotationCodes();
 
                     var annotationCode = this._codeDatas[index].code;

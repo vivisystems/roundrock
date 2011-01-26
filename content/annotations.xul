@@ -40,8 +40,8 @@
                 <label value="&annotations.title;"  class="label-page-title"/>
                 <hbox flex="1" class="content-listbox">
                     <vivitree id="annotationscrollablepanel" flex="1" class="standard"
-                                    headers="&annotations.code;,&annotations.type;,&annotations.text;"
-                                    fields="code,type,text"
+                                    headers="&annotations.code;,&annotations.type;,&annotations.text;,Image"
+                                    fields="code,type,text,image"
                                     hidecolumnpicker="true"
                                     onselect="$do('selectCode',this.selectedIndex, 'Annotations');"/>
                 </hbox>
@@ -72,6 +72,21 @@
                                         <textbox id="annotation_text"
                                                  oninput="$do('validateCodeForm', null, 'Annotations');"
                                                  form="annotationCodeForm" name="text" default=""/>
+                                    </vbox>
+                                    <spacer style="width: 10px;" />
+                                    <hbox class="custom-content-product-image-area">
+                                        <image id="codeimage" class="custom-content-product-image"/>
+                                        <textbox id="annotation_image" hidden="true"
+                                                 form="annotationCodeForm" name="image" default=""/>
+                                    </hbox>
+                                    <spacer style="width: 10px;" />
+                                    <vbox>
+                                        <button id="imageBrowseBtn" class="button-execute" label="action.add.icon"
+                                                image="chrome://viviecr/skin/images/add.png"
+                                                oncommand="$do('selectCodeImage', null, 'Annotations');"/>
+                                        <button id="imageRemoveBtn" class="button-execute" label="action.remove.icon"
+                                                image="chrome://viviecr/skin/images/cancel.png"
+                                                oncommand="$do('removeCodeImage', null, 'Annotations');"/>
                                     </vbox>
                                 </hbox>
                             </row>
